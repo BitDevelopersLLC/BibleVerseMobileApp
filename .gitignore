@@ -1,0 +1,13 @@
+# Private working notes, kept out of the public repository.
+.claude/
+CLAUDE.md
+ClaudeLog.md
+trademark-search/
+
+# Bible source downloads stay outside the repo.
+_downloads/
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
