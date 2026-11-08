@@ -7,7 +7,7 @@
 - **Free forever.** No price, no subscription, no "premium."
 - **No ads, no account, no tracking.** The app collects nothing. See [PRIVACY.md](PRIVACY.md).
 - **Fully offline.** The verses are built into the app.
-- **Open source**, so anyone can check these promises.
+- **Open source** (GPL-3.0), so anyone can check these promises.
 
 | Platform | How the verse reaches the lock screen |
 |---|---|
@@ -98,3 +98,13 @@ aapt dump permissions build/app/outputs/flutter-apk/app-release.apk
 ```
 
 See [PRIVACY.md](PRIVACY.md) for every permission and what it is for.
+
+## License
+
+Copyright (C) 2026 BitDevelopers LLC
+
+Without Price is free software: you can redistribute it and/or modify it under the terms of the
+[GNU General Public License v3.0](LICENSE) as published by the Free Software Foundation.
+Anyone who distributes a modified version must also share its source code under the same license.
+
+The bundled Bible translations are in the public domain. "World English Bible" is a trademark of eBible.org.

@@ -14,3 +14,7 @@ uses [Semantic Versioning](https://semver.org/).
 - Four wallpaper styles with a live preview.
 - An About screen with the privacy promise and translation notices.
 - `tools/build_verses.py` to regenerate the bundled verse data from eBible.org.
+- Licensed under GPL-3.0.
+
+### Fixed
+- Turning on the daily lock screen no longer starts two wallpaper updates at the same moment.
