@@ -410,6 +410,66 @@ section {
   font-weight: 600;
 }
 
+/* Support page: expandable questions (no JavaScript) */
+
+.contact-box {
+  background: #f4ecea;
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+details {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin: 10px 0;
+  padding: 0 18px;
+}
+
+details[open] {
+  padding-bottom: 6px;
+}
+
+summary {
+  cursor: pointer;
+  padding: 14px 0;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "+";
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--purple-soft);
+}
+
+details[open] summary::after {
+  content: "2";
+}
+
+summary:focus-visible {
+  outline: 2px solid var(--purple-soft);
+  outline-offset: 4px;
+}
+
+details ol,
+details ul {
+  padding-left: 1.3em;
+}
+
+details li + li {
+  margin-top: 6px;
+}
+
 /* Footer */
 
 .site-footer {
