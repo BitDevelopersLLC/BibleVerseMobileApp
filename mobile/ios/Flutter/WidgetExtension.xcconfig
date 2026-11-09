@@ -1,0 +1,10 @@
+// Base settings for the VerseWidgetExtension target.
+//
+// The App Store requires an app extension to have the same version and build number as its app.
+// Flutter writes both into Generated.xcconfig from `version:` in pubspec.yaml, so the widget
+// reads them from there (MARKETING_VERSION and CURRENT_PROJECT_VERSION in the target's build
+// settings refer to FLUTTER_BUILD_NAME and FLUTTER_BUILD_NUMBER).
+//
+// Unlike Debug.xcconfig and Release.xcconfig, this does not include the CocoaPods settings:
+// the widget doesn't link Flutter or any plugin.
+#include "Generated.xcconfig"
