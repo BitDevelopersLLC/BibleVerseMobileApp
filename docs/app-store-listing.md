@@ -23,7 +23,7 @@ on the Mac (see `docs/ios-setup.md`).
 | SKU | `withoutprice-ios` (private, any unique text) |
 | Primary category | Reference |
 | Secondary category | Lifestyle |
-| Content rights | Does not contain, show, or access third-party content |
+| Content rights | **Yes**, it contains third-party content and I have the necessary rights (the Bible translations are public domain) |
 | Age rating | Answer **None / No** to everything. Expected: **4+** |
 
 ## Version 1.0.0 page
