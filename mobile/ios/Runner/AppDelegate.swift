@@ -40,7 +40,10 @@ import WidgetKit
         let shared = UserDefaults(suiteName: Self.appGroup)
         shared?.set(arguments["translation"] as? String ?? "BSB", forKey: "translation")
         shared?.set(arguments["style"] as? String ?? "dawn", forKey: "style")
-        WidgetCenter.shared.reloadAllTimelines()
+        // WidgetKit needs iOS 14; the widget itself requires iOS 17, so older systems skip this.
+        if #available(iOS 14.0, *) {
+          WidgetCenter.shared.reloadAllTimelines()
+        }
         result(nil)
       default:
         result(FlutterMethodNotImplemented)
