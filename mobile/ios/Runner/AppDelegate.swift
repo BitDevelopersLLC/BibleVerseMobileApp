@@ -45,10 +45,7 @@ import WidgetKit
           // A missing value clears the key, so the readers fall back to their defaults.
           shared?.set(arguments[key] as? String, forKey: key)
         }
-        // WidgetKit needs iOS 14; the widget itself requires iOS 17, so older systems skip this.
-        if #available(iOS 14.0, *) {
-          WidgetCenter.shared.reloadAllTimelines()
-        }
+        WidgetCenter.shared.reloadAllTimelines()
         result(nil)
       default:
         result(FlutterMethodNotImplemented)
