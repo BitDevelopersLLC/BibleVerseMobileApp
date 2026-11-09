@@ -17,6 +17,7 @@ class LockScreenPreferences(context: Context) {
         val translationId: String,
         val styleId: String,
         val positionId: String,
+        val cadenceId: String,
     )
 
     private val prefs = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
@@ -28,19 +29,27 @@ class LockScreenPreferences(context: Context) {
             translationId = prefs.getString(KEY_TRANSLATION, null) ?: DEFAULT_TRANSLATION,
             styleId = prefs.getString(KEY_STYLE, null) ?: DEFAULT_STYLE,
             positionId = prefs.getString(KEY_POSITION, null) ?: DEFAULT_POSITION,
+            cadenceId = prefs.getString(KEY_CADENCE, null) ?: DEFAULT_CADENCE,
         )
         set(value) = edit {
             putBoolean(KEY_ENABLED, value.enabled)
             putString(KEY_TRANSLATION, value.translationId)
             putString(KEY_STYLE, value.styleId)
             putString(KEY_POSITION, value.positionId)
+            putString(KEY_CADENCE, value.cadenceId)
         }
 
-    /** The epoch day whose verse is currently on the lock screen, or `null` if none has been set. */
-    var lastAppliedDay: Long?
-        get() = if (prefs.contains(KEY_LAST_APPLIED_DAY)) prefs.getLong(KEY_LAST_APPLIED_DAY, 0) else null
+    /**
+     * The rotation slot whose verse is currently on the lock screen, or `null` if none has been set.
+     * See [app.withoutprice.verses.VerseCadence.slotContaining].
+     */
+    var lastAppliedSlot: Long?
+        get() = if (prefs.contains(KEY_LAST_APPLIED_SLOT)) prefs.getLong(KEY_LAST_APPLIED_SLOT, 0) else null
         set(value) = edit {
-            if (value == null) remove(KEY_LAST_APPLIED_DAY) else putLong(KEY_LAST_APPLIED_DAY, value)
+            if (value == null) remove(KEY_LAST_APPLIED_SLOT) else putLong(KEY_LAST_APPLIED_SLOT, value)
+            // Written by version 1.0.0, which only had daily slots. After updating, the first run
+            // redraws the same verse once and the old key is no longer needed.
+            remove(LEGACY_KEY_LAST_APPLIED_DAY)
         }
 
     private inline fun edit(block: SharedPreferences.Editor.() -> Unit) = prefs.edit().apply(block).apply()
@@ -55,11 +64,16 @@ class LockScreenPreferences(context: Context) {
         /** Position used until the user picks one. Matches `VersePosition.DEFAULT`. */
         const val DEFAULT_POSITION = "bottom"
 
+        /** Cadence used until the user picks one. Matches `VerseCadence.defaultCadence`. */
+        const val DEFAULT_CADENCE = "daily"
+
         private const val FILE_NAME = "lockscreen"
         private const val KEY_ENABLED = "enabled"
         private const val KEY_TRANSLATION = "translation"
         private const val KEY_STYLE = "style"
         private const val KEY_POSITION = "position"
-        private const val KEY_LAST_APPLIED_DAY = "lastAppliedDay"
+        private const val KEY_CADENCE = "cadence"
+        private const val KEY_LAST_APPLIED_SLOT = "lastAppliedSlot"
+        private const val LEGACY_KEY_LAST_APPLIED_DAY = "lastAppliedDay"
     }
 }

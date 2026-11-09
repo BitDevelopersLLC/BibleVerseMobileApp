@@ -77,6 +77,9 @@ flutter {
 }
 
 dependencies {
-    // Runs the once-a-day lock screen refresh in the background.
+    // Runs the lock screen refresh in the background (daily or hourly, see VerseCadence).
     implementation("androidx.work:work-runtime-ktx:2.10.1")
+
+    // Local unit tests only (src/test). Not part of the app.
+    testImplementation("junit:junit:4.13.2")
 }

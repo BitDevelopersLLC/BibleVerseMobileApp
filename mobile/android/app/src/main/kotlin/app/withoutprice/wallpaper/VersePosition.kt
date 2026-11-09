@@ -8,7 +8,8 @@ package app.withoutprice.wallpaper
  * the very top. The verse is centered inside the area and shrinks to fit. Top and Bottom stop
  * short of the screen edges because some lock screens (Pixel) magnify the wallpaper by ~12%.
  *
- * The ids and fractions match `lib/wallpaper/verse_position.dart`. Keep both in sync.
+ * The ids and fractions match `lib/wallpaper/verse_position.dart` and
+ * `ios/Shared/VersePosition.swift`. Keep all three in sync.
  */
 enum class VersePosition(val id: String, val bandTop: Float, val bandBottom: Float) {
     /** The top quarter (0-25%). Starts below the status bar. */

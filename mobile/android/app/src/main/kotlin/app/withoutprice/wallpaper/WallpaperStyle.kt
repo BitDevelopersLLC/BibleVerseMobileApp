@@ -4,7 +4,7 @@ package app.withoutprice.wallpaper
  * A wallpaper background.
  *
  * The ids and colors are duplicated in `lib/wallpaper/wallpaper_style.dart` and
- * `ios/VerseWidget/WidgetStyle.swift`. Keep all three in sync.
+ * `ios/Shared/WallpaperStyle.swift`. Keep all three in sync.
  */
 enum class WallpaperStyle(val id: String, val topColor: Int, val bottomColor: Int, val textColor: Int) {
     DAWN("dawn", 0xFF3B2A4D.toInt(), 0xFFC9826B.toInt(), 0xFFFFFFFF.toInt()),

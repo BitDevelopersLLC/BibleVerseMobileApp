@@ -11,12 +11,13 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import app.withoutprice.verses.BundledVerses
 import app.withoutprice.verses.DailyVerse
+import app.withoutprice.verses.VerseCadence
 import app.withoutprice.wallpaper.VersePosition
 import app.withoutprice.wallpaper.WallpaperRenderer
 import app.withoutprice.wallpaper.WallpaperStyle
 
 /**
- * Background job that puts today's verse on the lock screen.
+ * Background job that puts the current verse on the lock screen.
  *
  * It runs without starting Flutter: it reads the bundled verse data, draws the wallpaper
  * natively, and sets it with [WallpaperManager.FLAG_LOCK] so the home screen is untouched.
@@ -28,12 +29,12 @@ class VerseWallpaperWorker(context: Context, params: WorkerParameters) : Worker(
         val choices = preferences.choices
         if (!choices.enabled) return Result.success()
 
-        val today = DailyVerse.localEpochDay()
+        val slot = VerseCadence.fromId(choices.cadenceId).slotContaining()
         val force = inputData.getBoolean(KEY_FORCE, false)
-        if (!force && preferences.lastAppliedDay == today) return Result.success()
+        if (!force && preferences.lastAppliedSlot == slot) return Result.success()
 
         return try {
-            val verse = DailyVerse.pick(BundledVerses.load(applicationContext), today, choices.translationId)
+            val verse = DailyVerse.pick(BundledVerses.load(applicationContext), slot, choices.translationId)
             val size = portraitScreenSize()
             val bitmap = WallpaperRenderer.render(
                 size.width,
@@ -48,7 +49,7 @@ class VerseWallpaperWorker(context: Context, params: WorkerParameters) : Worker(
             } finally {
                 bitmap.recycle()
             }
-            preferences.lastAppliedDay = today
+            preferences.lastAppliedSlot = slot
             Result.success()
         } catch (e: Exception) {
             Log.w(TAG, "Could not set the lock screen verse (attempt ${runAttemptCount + 1})", e)
@@ -72,7 +73,7 @@ class VerseWallpaperWorker(context: Context, params: WorkerParameters) : Worker(
     }
 
     companion object {
-        /** Input flag: set the wallpaper even if today's verse is already on the lock screen. */
+        /** Input flag: set the wallpaper even if the current verse is already on the lock screen. */
         const val KEY_FORCE = "force"
 
         private const val TAG = "WithoutPrice"

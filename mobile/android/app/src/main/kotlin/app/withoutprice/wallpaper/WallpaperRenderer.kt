@@ -15,7 +15,8 @@ import app.withoutprice.verses.Verse
  * Draws a full-screen verse wallpaper.
  *
  * The layout matches `lib/wallpaper/wallpaper_renderer.dart`, which draws the in-app preview,
- * so what the user previews is what appears on the lock screen. Keep the constants in sync.
+ * so what the user previews is what appears on the lock screen. The iOS Shortcuts action draws
+ * the same layout in `ios/WallpaperShortcut/WallpaperRenderer.swift`. Keep the constants in sync.
  */
 object WallpaperRenderer {
     /** Horizontal margin on each side, as a fraction of the width. */
