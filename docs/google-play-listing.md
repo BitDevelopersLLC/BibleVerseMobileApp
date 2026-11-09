@@ -33,11 +33,11 @@ Start every day with God's Word. Without Price puts a new Bible verse on your lo
 
 That verse is our promise. This app isn't trying to get anything from you.
 
-★ Free forever. No price, no subscription, no "premium" version.
-★ No ads. Nothing competes with the verse for your attention.
-★ Nothing collected. No account, no analytics, no tracking. The app doesn't even have permission to use the internet.
-★ Works offline. Every verse is built into the app.
-★ Open source. Anyone can read the code and check these promises.
+• Free forever. No price, no subscription, no "premium" version.
+• No ads. Nothing competes with the verse for your attention.
+• Nothing collected. No account, no analytics, no tracking. The app doesn't even have permission to use the internet.
+• Works offline. Every verse is built into the app.
+• Open source. Anyone can read the code and check these promises.
 
 HOW IT WORKS
 1. Pick a translation and a background.
