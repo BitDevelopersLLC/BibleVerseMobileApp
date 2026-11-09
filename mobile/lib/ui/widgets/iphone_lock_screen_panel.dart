@@ -8,10 +8,11 @@ import 'verse_position_picker.dart';
 import 'wallpaper_preview.dart';
 import 'wallpaper_style_picker.dart';
 
-/// iPhone lock screen options: the widget (recommended) and a wallpaper image.
+/// iPhone lock screen options: the small widget and the full-screen wallpaper.
 ///
-/// iOS does not let apps change the wallpaper, so the wallpaper option saves an
-/// image to Photos and links to step-by-step instructions.
+/// iOS does not let apps change the wallpaper, so the wallpaper option saves an image to
+/// Photos and links to step-by-step instructions, including a Shortcuts automation that
+/// replaces the picture every morning.
 class IphoneLockScreenPanel extends StatelessWidget {
   /// Creates the iPhone lock screen panel.
   const IphoneLockScreenPanel({
@@ -45,17 +46,17 @@ class IphoneLockScreenPanel extends StatelessWidget {
             leading: const Icon(Icons.widgets_outlined),
             title: const Text('Add the lock screen widget'),
             subtitle: const Text(
-              "Recommended. Shows today's verse under the clock and changes by itself every day.",
+              'A small verse under the clock. No setup after adding it, and it changes by itself.',
             ),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => onOpenGuide(IphoneSetupTab.widget),
           ),
         ),
         const SizedBox(height: 20),
-        Text('Or use the verse as your wallpaper', style: textTheme.titleSmall),
+        Text('Or show the whole verse as your wallpaper', style: textTheme.titleSmall),
         const SizedBox(height: 4),
         Text(
-          'Shows the whole verse, full screen. You set it yourself in a few taps.',
+          'Big and full screen. Set it once, then let the Shortcuts app change it every morning.',
           style: textTheme.bodySmall,
         ),
         const SizedBox(height: 12),
@@ -65,6 +66,7 @@ class IphoneLockScreenPanel extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         VersePositionPicker(
+          hint: 'If your clock or widgets cover the verse, move it to a clear spot.',
           selected: settings.versePosition,
           onSelected: (position) => settings.versePosition = position,
         ),
@@ -77,7 +79,7 @@ class IphoneLockScreenPanel extends StatelessWidget {
           onPressed: onSaveToPhotos,
         ),
         TextButton(
-          child: const Text('How to set it as your lock screen'),
+          child: const Text('How to set it, and change it every day'),
           onPressed: () => onOpenGuide(IphoneSetupTab.wallpaper),
         ),
       ],

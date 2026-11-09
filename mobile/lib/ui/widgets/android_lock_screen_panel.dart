@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import '../../data/app_settings.dart';
+import '../../data/verse_cadence.dart';
 import 'verse_position_picker.dart';
 import 'wallpaper_preview.dart';
 import 'wallpaper_style_picker.dart';
@@ -40,7 +41,11 @@ class AndroidLockScreenPanel extends StatelessWidget {
       children: [
         SwitchListTile(
           contentPadding: EdgeInsets.zero,
-          title: const Text('Put a new verse on my lock screen every day'),
+          title: Text(
+            settings.cadence == VerseCadence.hourly
+                ? 'Put a new verse on my lock screen every hour'
+                : 'Put a new verse on my lock screen every day',
+          ),
           subtitle: const Text('Changes only the lock screen. Your home screen stays the same.'),
           value: settings.dailyLockScreen,
           onChanged: (enabled) => settings.dailyLockScreen = enabled,
@@ -52,6 +57,7 @@ class AndroidLockScreenPanel extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         VersePositionPicker(
+          hint: 'If your clock or fingerprint icon covers the verse, move it to a clear spot.',
           selected: settings.versePosition,
           onSelected: (position) => settings.versePosition = position,
         ),
