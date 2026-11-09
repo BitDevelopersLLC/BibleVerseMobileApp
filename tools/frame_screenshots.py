@@ -2,23 +2,57 @@
 """Place raw phone screenshots on branded backgrounds with captions, for the app stores.
 
 Usage:
-    python -I tools/frame_screenshots.py <raw_dir> <out_dir> [width height]
+    python tools/frame_screenshots.py <raw_dir> <out_dir> [width height] [--set android|ios]
 
-Defaults to 1080 x 1920 (Google Play, 9:16). For the App Store 6.9" size use 1320 2868.
-Requires Pillow. Captions and file order are in SHOTS below. Uses the Georgia Bold font
+Defaults to 1080 x 1920 (Google Play, 9:16) and the Android captions. For the App Store use
+`1320 2868 --set ios` (iPhone 6.9") or `2064 2752 --set ios` (iPad 13").
+Requires Pillow. Captions and file order are in SHOT_SETS below. Uses the Georgia Bold font
 on Windows or macOS.
 """
-import sys
+import argparse
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-RAW = Path(sys.argv[1])
-OUT = Path(sys.argv[2])
+#: (raw file, caption, output name), in store order, for each platform.
+#: The stores reject price/promotion wording such as "free" in graphics, so captions avoid it.
+SHOT_SETS = {
+    "android": [
+        ("02-lock-screen.png", "A new Bible verse on\nyour lock screen,\nevery day", "01-lock-screen"),
+        ("01-home.png", "Four trusted\npublic-domain\ntranslations", "02-translations"),
+        ("03-styles.png", "Your colors, and\nwhere the verse\nsits on your screen", "03-styles"),
+        ("05-lock-screen-night.png", "Set it once.\nIt changes every\nmorning.", "04-changes-daily"),
+        ("04-about.png", "No ads.\nNo tracking.\nNothing collected.", "05-privacy"),
+    ],
+    # Raw files come from the iOS Simulator (see docs/ios-setup.md, section 5).
+    "ios": [
+        ("01-lock-widget.png", "A Bible verse on\nyour lock screen,\nevery day", "01-lock-widget"),
+        ("02-lock-wallpaper.png", "Or the whole verse,\nfull screen, new\nevery morning", "02-wallpaper"),
+        ("03-home.png", "Four trusted\npublic-domain\ntranslations", "03-translations"),
+        ("04-styles.png", "Your colors, and\nwhere the verse\nsits on your screen", "04-styles"),
+        ("05-shortcuts-guide.png", "Set it up once\nwith the Shortcuts\napp. Step by step.", "05-shortcuts"),
+        ("06-about.png", "No ads.\nNo tracking.\nNothing collected.", "06-privacy"),
+    ],
+}
+
+parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+parser.add_argument("raw_dir", type=Path, help="folder with the raw screenshots")
+parser.add_argument("out_dir", type=Path, help="folder for the framed images")
+parser.add_argument("size", type=int, nargs="*", help="output width and height (default 1080 1920)")
+parser.add_argument("--set", dest="shot_set", choices=sorted(SHOT_SETS), default="android",
+                    help="which captions and file names to use (default android)")
+args = parser.parse_args()
+if args.size and len(args.size) != 2:
+    parser.error("give both width and height, or neither")
+
+RAW = args.raw_dir
+OUT = args.out_dir
 OUT.mkdir(parents=True, exist_ok=True)
 
-W, H = (int(sys.argv[3]), int(sys.argv[4])) if len(sys.argv) == 5 else (1080, 1920)
-SCALE = W / 1080
+W, H = args.size if args.size else (1080, 1920)
+# Scale from the 1080 x 1920 design by the tighter side, so wide canvases (iPad) keep the caption
+# above the screenshot. Phones are width-limited, so their layout is unchanged.
+SCALE = min(W / 1080, H / 1920)
 TOP = (0x3B, 0x2A, 0x4D)      # icon / Dawn purple
 BOTTOM = (0xC9, 0x82, 0x6B)   # Dawn peach
 # Georgia Bold: Windows path first, then macOS.
@@ -27,15 +61,7 @@ SERIF_FONT = next(p for p in ("C:/Windows/Fonts/georgiab.ttf",
                               "/Library/Fonts/Georgia Bold.ttf") if Path(p).exists())
 SERIF = ImageFont.truetype(SERIF_FONT, round(74 * SCALE))
 
-#: (raw file, caption, output name), in store order.
-#: Google Play rejects price/promotion wording such as "free" in graphics, so captions avoid it.
-SHOTS = [
-    ("02-lock-screen.png", "A new Bible verse on\nyour lock screen,\nevery day", "01-lock-screen"),
-    ("01-home.png", "Four trusted\npublic-domain\ntranslations", "02-translations"),
-    ("03-styles.png", "Your colors, and\nwhere the verse\nsits on your screen", "03-styles"),
-    ("05-lock-screen-night.png", "Set it once.\nIt changes every\nmorning.", "04-changes-daily"),
-    ("04-about.png", "No ads.\nNo tracking.\nNothing collected.", "05-privacy"),
-]
+SHOTS = SHOT_SETS[args.shot_set]
 
 
 def gradient() -> Image.Image:

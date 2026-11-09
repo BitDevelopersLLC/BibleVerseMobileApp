@@ -2,12 +2,15 @@
 """Generate store and website graphics from the logo and the raw screenshots.
 
 Usage:
-    python -I tools/make_brand_graphics.py
+    python tools/make_brand_graphics.py              everything below
+    python tools/make_brand_graphics.py --ios-only   only the iPhone and iPad website images
 
 Inputs (private, not in git):
     media/icon-master.png                  1024 x 1024 full icon (no transparency)
     media/icon-monochrome.png              1024 x 1024 one-color logo on transparent
     media/screenshots/android/raw/*.png    raw phone screenshots
+    media/screenshots/ios/iphone-raw/*.png raw iPhone screenshots (iOS Simulator)
+    media/screenshots/ios/ipad-raw/*.png   raw iPad screenshots (iOS Simulator)
 
 Outputs:
     media/google-play/feature-graphic.png  1024 x 500, Google Play feature graphic
@@ -21,6 +24,7 @@ Store graphics avoid price/promotion words such as "free" (Google Play rejects t
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -28,6 +32,14 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 ROOT = Path(__file__).resolve().parent.parent
 MEDIA = ROOT / "media"
 RAW = MEDIA / "screenshots" / "android" / "raw"
+IOS_RAW = MEDIA / "screenshots" / "ios"
+#: (raw folder, raw file, website file) for the iPhone and iPad galleries on the home page.
+IOS_SITE_IMAGES = [
+    ("iphone-raw", "01-lock-widget", "iphone-lock-widget"),
+    ("iphone-raw", "03-home", "iphone-home"),
+    ("iphone-raw", "02-lock-wallpaper", "iphone-wallpaper"),
+    ("ipad-raw", "02-lock-wallpaper", "ipad-lock-screen"),
+]
 SITE_IMG = ROOT / "website" / "assets" / "img"
 
 #: Georgia regular and bold, on Windows or macOS.
@@ -131,7 +143,26 @@ def save_square(img: Image.Image, size: int, out: Path) -> None:
     print(f"{out.relative_to(ROOT)}  {size}x{size}")
 
 
+def ios_site_images() -> None:
+    """The iPhone and iPad screenshots for the website, in the same bezel as the Android ones."""
+    for folder, name, out_name in IOS_SITE_IMAGES:
+        source = IOS_RAW / folder / f"{name}.png"
+        if not source.exists():
+            print(f"skipping {source.relative_to(ROOT)} (not found)")
+            continue
+        out = SITE_IMG / f"{out_name}.png"
+        phone(source, 900).save(out, optimize=True)
+        print(f"{out.relative_to(ROOT)}")
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Generate store and website graphics.")
+    parser.add_argument("--ios-only", action="store_true",
+                        help="only regenerate the iPhone and iPad website images")
+    if parser.parse_args().ios_only:
+        ios_site_images()
+        return
+
     master = Image.open(MEDIA / "icon-master.png").convert("RGB")
 
     # Store graphics.
@@ -153,6 +184,7 @@ def main() -> None:
         out = SITE_IMG / f"android-{name[3:]}.png"
         phone(RAW / f"{name}.png", 900).save(out, optimize=True)
         print(f"{out.relative_to(ROOT)}")
+    ios_site_images()
 
 
 if __name__ == "__main__":
