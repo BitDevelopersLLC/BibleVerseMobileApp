@@ -16,6 +16,12 @@ each in a folder named after its eBible code::
     <download_dir>/eng-web/eng-web_vpl.txt    https://ebible.org/Scriptures/eng-web_vpl.zip
     <download_dir>/eng-asv/eng-asv_vpl.txt    https://ebible.org/Scriptures/eng-asv_vpl.zip
 
+It also needs each translation's USFM archive, unzipped into ``<code>_usfm``, for the Psalm
+headings (see ``load_psalm_titles``)::
+
+    <download_dir>/engbsb_usfm/20-PSAengbsb.usfm   https://ebible.org/Scriptures/engbsb_usfm.zip
+    (and the same for eng-kjv, eng-web, eng-asv)
+
 Keep the downloads outside the repository.
 """
 
@@ -125,6 +131,37 @@ def load_vpl(path: Path) -> dict[VerseKey, str]:
     return verses
 
 
+USFM_NOTE = re.compile(r"\\(f|x)\s.*?\\\1\*", flags=re.S)  # footnotes and cross references
+USFM_WORD = re.compile(r"\\\+?w\s+([^|\\]*?)(?:\|[^\\]*)?\\\+?w\*")  # \w word|strong="..."\w*
+USFM_MARKER = re.compile(r"\\\+?[a-z0-9]+\*?")  # any remaining \marker or \marker*
+
+
+def clean_usfm(text: str) -> str:
+    """Plain text from a run of USFM: drop notes, keep words, remove markers."""
+    text = USFM_NOTE.sub("", text)
+    text = USFM_WORD.sub(r"\1", text)
+    text = USFM_MARKER.sub("", text)
+    return clean_text(text)
+
+
+def load_psalm_titles(usfm_dir: Path) -> dict[int, str]:
+    """Read the Psalm headings (USFM ``\\d`` lines) into a ``{chapter: heading}`` map.
+
+    The verse-per-line files merge a Psalm's heading ("For the choirmaster. A Psalm of
+    David.") into verse 1. The USFM files keep it on its own ``\\d`` line, so the heading
+    can be removed exactly instead of guessed.
+    """
+    psalms = next(usfm_dir.glob("*PSA*.usfm"))
+    titles: dict[int, str] = {}
+    chapter = 0
+    for line in psalms.read_text(encoding="utf-8-sig").splitlines():
+        if line.startswith("\\c "):
+            chapter = int(line.split()[1])
+        elif line.startswith("\\d ") and chapter:
+            titles[chapter] = clean_usfm(line[3:])
+    return titles
+
+
 def read_reference_list(path: Path) -> list[str]:
     """Return the non-empty, non-comment lines of the curated reference list."""
     lines = (line.strip() for line in path.read_text(encoding="utf-8").splitlines())
@@ -132,9 +169,14 @@ def read_reference_list(path: Path) -> list[str]:
 
 
 def build_entries(
-    references: list[str], bibles: dict[str, dict[VerseKey, str]]
+    references: list[str],
+    bibles: dict[str, dict[VerseKey, str]],
+    psalm_titles: dict[str, dict[int, str]],
 ) -> tuple[list[dict[str, object]], list[str]]:
-    """Look up every reference in every translation. Returns ``(entries, problems)``."""
+    """Look up every reference in every translation. Returns ``(entries, problems)``.
+
+    Psalm headings are removed from verse 1, so the lock screen shows only the verse.
+    """
     entries: list[dict[str, object]] = []
     problems: list[str] = []
     for reference in references:
@@ -151,6 +193,12 @@ def build_entries(
             if any(part is None for part in parts):
                 problems.append(f"{reference} is missing in {translation.id}")
                 continue
+            title = psalm_titles[translation.id].get(chapter) if book == "PSA" and first == 1 else None
+            if title:
+                if not parts[0].startswith(title):
+                    problems.append(f"{reference} ({translation.id}): heading not found at the start of verse 1")
+                    continue
+                parts[0] = parts[0][len(title):].strip()
             texts[translation.id] = balance_quotes(" ".join(p for p in parts if p))
 
         verses = f"{first}" if first == last else f"{first}-{last}"
@@ -171,7 +219,10 @@ def main() -> int:
         t.id: load_vpl(args.download_dir / t.ebible_code / f"{t.ebible_code}_vpl.txt")
         for t in TRANSLATIONS
     }
-    entries, problems = build_entries(read_reference_list(REFERENCE_LIST), bibles)
+    psalm_titles = {
+        t.id: load_psalm_titles(args.download_dir / f"{t.ebible_code}_usfm") for t in TRANSLATIONS
+    }
+    entries, problems = build_entries(read_reference_list(REFERENCE_LIST), bibles, psalm_titles)
     if problems:
         print("Problems:\n  " + "\n  ".join(problems), file=sys.stderr)
         return 1

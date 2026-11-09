@@ -90,6 +90,8 @@ repository, then run the build script:
 # https://ebible.org/Scriptures/eng-kjv_vpl.zip  -> ~/ebible/eng-kjv/
 # https://ebible.org/Scriptures/eng-web_vpl.zip  -> ~/ebible/eng-web/
 # https://ebible.org/Scriptures/eng-asv_vpl.zip  -> ~/ebible/eng-asv/
+# Also each translation's USFM archive, used to remove Psalm headings from verse 1:
+# https://ebible.org/Scriptures/engbsb_usfm.zip  -> ~/ebible/engbsb_usfm/   (same for eng-kjv, eng-web, eng-asv)
 python -I tools/build_verses.py ~/ebible
 ```
 

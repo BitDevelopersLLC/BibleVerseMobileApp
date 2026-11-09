@@ -287,10 +287,10 @@
    "id": "PSA_23_1",
    "ref": "Psalm 23:1",
    "text": {
-    "BSB": "A Psalm of David. The LORD is my shepherd; I shall not want.",
-    "KJV": "A Psalm of David. The LORD is my shepherd; I shall not want.",
-    "WEB": "A Psalm by David. Yahweh is my shepherd; I shall lack nothing.",
-    "ASV": "A Psalm of David. Jehovah is my shepherd; I shall not want."
+    "BSB": "The LORD is my shepherd; I shall not want.",
+    "KJV": "The LORD is my shepherd; I shall not want.",
+    "WEB": "Yahweh is my shepherd; I shall lack nothing.",
+    "ASV": "Jehovah is my shepherd; I shall not want."
    }
   },
   {
@@ -517,10 +517,10 @@
    "id": "PSA_40_1",
    "ref": "Psalm 40:1",
    "text": {
-    "BSB": "For the choirmaster. A Psalm of David. I waited patiently for the LORD; He inclined to me and heard my cry.",
-    "KJV": "To the chief Musician, A Psalm of David. I waited patiently for the LORD; and he inclined unto me, and heard my cry.",
-    "WEB": "For the Chief Musician. A Psalm by David. I waited patiently for Yahweh. He turned to me, and heard my cry.",
-    "ASV": "For the Chief Musician. A Psalm of David. I waited patiently for Jehovah; And he inclined unto me, and heard my cry."
+    "BSB": "I waited patiently for the LORD; He inclined to me and heard my cry.",
+    "KJV": "I waited patiently for the LORD; and he inclined unto me, and heard my cry.",
+    "WEB": "I waited patiently for Yahweh. He turned to me, and heard my cry.",
+    "ASV": "I waited patiently for Jehovah; And he inclined unto me, and heard my cry."
    }
   },
   {
@@ -917,10 +917,10 @@
    "id": "PSA_46_1",
    "ref": "Psalm 46:1",
    "text": {
-    "BSB": "For the choirmaster. Of the sons of Korah. According to Alamoth. A song. God is our refuge and strength, an ever-present help in times of trouble.",
-    "KJV": "To the chief Musician for the sons of Korah, A Song upon Alamoth. God is our refuge and strength, a very present help in trouble.",
-    "WEB": "For the Chief Musician. By the sons of Korah. According to Alamoth. God is our refuge and strength, a very present help in trouble.",
-    "ASV": "For the Chief Musician. A Psalm of the sons of Korah; set to Alamoth. A Song. God is our refuge and strength, A very present help in trouble."
+    "BSB": "God is our refuge and strength, an ever-present help in times of trouble.",
+    "KJV": "God is our refuge and strength, a very present help in trouble.",
+    "WEB": "God is our refuge and strength, a very present help in trouble.",
+    "ASV": "God is our refuge and strength, A very present help in trouble."
    }
   },
   {
@@ -1377,10 +1377,10 @@
    "id": "PSA_121_1_2",
    "ref": "Psalm 121:1-2",
    "text": {
-    "BSB": "A song of ascents. I lift up my eyes to the hills. From where does my help come? My help comes from the LORD, the Maker of heaven and earth.",
-    "KJV": "A Song of degrees. I will lift up mine eyes unto the hills, from whence cometh my help. My help cometh from the LORD, which made heaven and earth.",
-    "WEB": "A Song of Ascents. I will lift up my eyes to the hills. Where does my help come from? My help comes from Yahweh, who made heaven and earth.",
-    "ASV": "A Song of Ascents. I will lift up mine eyes unto the mountains: From whence shall my help come? My help cometh from Jehovah, Who made heaven and earth."
+    "BSB": "I lift up my eyes to the hills. From where does my help come? My help comes from the LORD, the Maker of heaven and earth.",
+    "KJV": "I will lift up mine eyes unto the hills, from whence cometh my help. My help cometh from the LORD, which made heaven and earth.",
+    "WEB": "I will lift up my eyes to the hills. Where does my help come from? My help comes from Yahweh, who made heaven and earth.",
+    "ASV": "I will lift up mine eyes unto the mountains: From whence shall my help come? My help cometh from Jehovah, Who made heaven and earth."
    }
   },
   {
@@ -1657,10 +1657,10 @@
    "id": "PSA_27_1",
    "ref": "Psalm 27:1",
    "text": {
-    "BSB": "Of David. The LORD is my light and my salvation— whom shall I fear? The LORD is the stronghold of my life— whom shall I dread?",
-    "KJV": "A Psalm of David. The LORD is my light and my salvation; whom shall I fear? the LORD is the strength of my life; of whom shall I be afraid?",
-    "WEB": "By David. Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?",
-    "ASV": "A Psalm of David. Jehovah is my light and my salvation; Whom shall I fear? Jehovah is the strength of my life; Of whom shall I be afraid?"
+    "BSB": "The LORD is my light and my salvation— whom shall I fear? The LORD is the stronghold of my life— whom shall I dread?",
+    "KJV": "The LORD is my light and my salvation; whom shall I fear? the LORD is the strength of my life; of whom shall I be afraid?",
+    "WEB": "Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?",
+    "ASV": "Jehovah is my light and my salvation; Whom shall I fear? Jehovah is the strength of my life; Of whom shall I be afraid?"
    }
   },
   {
@@ -1677,10 +1677,10 @@
    "id": "PSA_62_1",
    "ref": "Psalm 62:1",
    "text": {
-    "BSB": "For the choirmaster. According to Jeduthun. A Psalm of David. In God alone my soul finds rest; my salvation comes from Him.",
-    "KJV": "To the chief Musician, to Jeduthun, A Psalm of David. Truly my soul waiteth upon God: from him cometh my salvation.",
-    "WEB": "For the Chief Musician. To Jeduthun. A Psalm by David. My soul rests in God alone. My salvation is from him.",
-    "ASV": "For the Chief Musician; after the manner of Jeduthun. A Psalm of David. My soul waiteth in silence for God only: From him cometh my salvation."
+    "BSB": "In God alone my soul finds rest; my salvation comes from Him.",
+    "KJV": "Truly my soul waiteth upon God: from him cometh my salvation.",
+    "WEB": "My soul rests in God alone. My salvation is from him.",
+    "ASV": "My soul waiteth in silence for God only: From him cometh my salvation."
    }
   },
   {

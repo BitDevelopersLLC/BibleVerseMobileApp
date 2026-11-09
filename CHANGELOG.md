@@ -18,5 +18,6 @@ uses [Semantic Versioning](https://semver.org/).
 - withoutprice.app website (coming-soon home page, support page, and privacy policy).
 
 ### Fixed
+- Psalm headings (such as "For the choirmaster. A Psalm of David.") no longer appear before verse 1.
 - Turning on the daily lock screen no longer starts two wallpaper updates at the same moment.
 - The verse no longer sits under the large centered clock that Android 15 shows when there are no notifications.
