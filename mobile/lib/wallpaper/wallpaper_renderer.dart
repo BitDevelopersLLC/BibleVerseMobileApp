@@ -13,11 +13,12 @@ abstract final class WallpaperRenderer {
   /// Horizontal margin on each side, as a fraction of the width.
   static const _marginFraction = 0.10;
 
-  /// Top of the text band. The lock screen clock sits above it.
-  static const _bandTopFraction = 0.36;
+  /// Top of the text band, below the lock screen clock. With no notifications, Android 15
+  /// shows a large clock centered on the screen that reaches about 66% of the height.
+  static const _bandTopFraction = 0.67;
 
-  /// Height of the text band. The lock screen shortcut buttons sit below it.
-  static const _bandHeightFraction = 0.46;
+  /// Height of the text band. The unlock icon and shortcut buttons sit below it (from ~85%).
+  static const _bandHeightFraction = 0.16;
 
   /// Starting verse font size, as a fraction of the width.
   static const _startFontFraction = 0.062;
