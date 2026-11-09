@@ -17,6 +17,10 @@ uses [Semantic Versioning](https://semver.org/).
 - Licensed under GPL-3.0.
 - withoutprice.app website (coming-soon home page, support page, and privacy policy).
 
+### Changed
+- The Android app now asks for only three permissions; two unused ones added by WorkManager were removed.
+- Release builds are signed with the Without Price upload key.
+
 ### Fixed
 - Psalm headings (such as "For the choirmaster. A Psalm of David.") no longer appear before verse 1.
 - Turning on the daily lock screen no longer starts two wallpaper updates at the same moment.

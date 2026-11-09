@@ -26,12 +26,10 @@ uninstall the app.
 | `SET_WALLPAPER` | To put the verse on your lock screen. |
 | `RECEIVE_BOOT_COMPLETED` | To keep the daily update running after your phone restarts. |
 | `WAKE_LOCK` | To let the daily update finish while the screen is off. |
-| `FOREGROUND_SERVICE` | Required by Android's background-job library. Not used to show anything. |
-| `ACCESS_NETWORK_STATE` | Required by Android's background-job library. It can only tell whether a network exists. It cannot send or receive data. |
 
-The last four come from Android's WorkManager library, which runs the once-a-day update.
-The app does **not** have the `INTERNET` permission, so it is technically unable to send data
-anywhere.
+The last two are used by Android's WorkManager library, which runs the once-a-day update.
+That's the complete list. The app does **not** have the `INTERNET` permission, so it is
+technically unable to send data anywhere.
 
 ## iPhone and iPad permissions
 
