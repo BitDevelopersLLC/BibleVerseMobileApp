@@ -15,7 +15,7 @@ Outputs:
     media/app-store/icon-1024.png          1024 x 1024, App Store icon (no alpha)
     website/assets/img/...                 logo, favicons, social card, phone images
 
-Requires Pillow. Fonts come from Windows (Georgia); change FONT_DIR on other systems.
+Requires Pillow. Uses the Georgia font from Windows or macOS.
 Store graphics avoid price/promotion words such as "free" (Google Play rejects them).
 """
 
@@ -30,14 +30,19 @@ MEDIA = ROOT / "media"
 RAW = MEDIA / "screenshots" / "android" / "raw"
 SITE_IMG = ROOT / "website" / "assets" / "img"
 
-FONT_DIR = Path("C:/Windows/Fonts")
+#: Georgia regular and bold, on Windows or macOS.
+FONT_FILES = {
+    "georgia.ttf": ("C:/Windows/Fonts/georgia.ttf", "/System/Library/Fonts/Supplemental/Georgia.ttf"),
+    "georgiab.ttf": ("C:/Windows/Fonts/georgiab.ttf", "/System/Library/Fonts/Supplemental/Georgia Bold.ttf"),
+}
 PURPLE = (0x3B, 0x2A, 0x4D)  # logo and "Dawn" top color
 PEACH = (0xC9, 0x82, 0x6B)   # "Dawn" bottom color
 BEZEL = (20, 16, 26)
 
 
 def font(name: str, size: int) -> ImageFont.FreeTypeFont:
-    return ImageFont.truetype(str(FONT_DIR / name), size)
+    path = next(p for p in FONT_FILES[name] if Path(p).exists())
+    return ImageFont.truetype(path, size)
 
 
 def gradient(size: tuple[int, int], start: tuple[int, int, int], end: tuple[int, int, int],

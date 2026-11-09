@@ -6,7 +6,7 @@ Usage:
 
 Defaults to 1080 x 1920 (Google Play, 9:16). For the App Store 6.9" size use 1320 2868.
 Requires Pillow. Captions and file order are in SHOTS below. Fonts come from Windows
-(Georgia Bold); change SERIF_FONT on other systems.
+(Georgia Bold) on Windows or macOS.
 """
 import sys
 from pathlib import Path
@@ -21,7 +21,10 @@ W, H = (int(sys.argv[3]), int(sys.argv[4])) if len(sys.argv) == 5 else (1080, 19
 SCALE = W / 1080
 TOP = (0x3B, 0x2A, 0x4D)      # icon / Dawn purple
 BOTTOM = (0xC9, 0x82, 0x6B)   # Dawn peach
-SERIF_FONT = "C:/Windows/Fonts/georgiab.ttf"
+# Georgia Bold: Windows path first, then macOS.
+SERIF_FONT = next(p for p in ("C:/Windows/Fonts/georgiab.ttf",
+                              "/System/Library/Fonts/Supplemental/Georgia Bold.ttf",
+                              "/Library/Fonts/Georgia Bold.ttf") if Path(p).exists())
 SERIF = ImageFont.truetype(SERIF_FONT, round(74 * SCALE))
 
 #: (raw file, caption, output name), in store order.
