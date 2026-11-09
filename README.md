@@ -46,19 +46,17 @@ mobile/                                  Flutter app (Android + iOS)
     wallpaper/                           Native wallpaper renderer and styles
   ios/Runner/AppDelegate.swift           Shares settings with the widget via an App Group
   ios/Shared/                            Verse rotation, styles and settings used by the app and widget
-  ios/VerseWidget/                       WidgetKit lock screen widget (see docs/ios-setup.md)
+  ios/VerseWidget/                       WidgetKit lock screen widget
   ios/WallpaperShortcut/                 "Get Today's Wallpaper" action for the Shortcuts app
   test/                                  Unit and widget tests
 tools/
   verse_refs.txt                         The curated verse list
   build_verses.py                        Builds mobile/assets/verses.json from eBible.org
-docs/ios-setup.md                        Xcode steps for the widget extension
 website/                                 withoutprice.app (static HTML/CSS, no scripts or trackers)
 ```
 
 The app's name and logo, the screenshots, and the website images are brand assets. They are kept
-out of this repository and are not covered by the GPL. `tools/make_brand_graphics.py` and
-`tools/frame_screenshots.py` rebuild them from the private originals.
+out of this repository and are not covered by the GPL.
 
 ### One rule, three languages
 
@@ -83,7 +81,10 @@ flutter test
 flutter run            # on a device or emulator
 ```
 
-iOS needs a one-time Xcode setup for the widget extension: see [docs/ios-setup.md](docs/ios-setup.md).
+For iOS, run `pod install` in `mobile/ios` once, then open `mobile/ios/Runner.xcworkspace`. The
+project already includes the widget extension (`VerseWidgetExtension`) and the App Group
+`group.app.withoutprice`. To build your own copy, choose your team under Signing & Capabilities
+for both the Runner and VerseWidgetExtension targets, and use your own bundle IDs and App Group.
 
 ### Rebuilding the verse data
 
