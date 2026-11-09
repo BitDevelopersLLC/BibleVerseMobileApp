@@ -45,7 +45,7 @@ mobile/                                  Flutter app (Android + iOS)
     verses/                              Bundled data access and the daily-verse rule
     wallpaper/                           Native wallpaper renderer and styles
   ios/Runner/AppDelegate.swift           Shares settings with the widget via an App Group
-  ios/VerseWidgetSources/                WidgetKit lock screen widget (see docs/ios-setup.md)
+  ios/VerseWidget/                       WidgetKit lock screen widget (see docs/ios-setup.md)
   test/                                  Unit and widget tests
 tools/
   verse_refs.txt                         The curated verse list

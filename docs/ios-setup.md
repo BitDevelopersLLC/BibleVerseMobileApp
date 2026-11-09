@@ -25,27 +25,28 @@ flutter run            # on a real iPhone or a simulator
 
 ## 2. Signing and App Group (Runner target)
 
-1. Open `mobile/ios/Runner.xcworkspace` in Xcode.
-2. Runner target > Signing & Capabilities: Team = BitDevelopers LLC. Bundle ID `app.withoutprice`.
-3. Add the **App Groups** capability and create `group.app.withoutprice`.
-4. Drag `ios/VerseWidgetSources/PrivacyInfo.xcprivacy` into the Runner group, with target **Runner** checked.
+Already configured in the project (done 2026-11-08), so a fresh clone only needs a signed-in Xcode:
 
-## 3. Create the widget extension
+- Runner target > Signing & Capabilities: Team = Bit Developers LLC, bundle ID `app.withoutprice`,
+  automatic signing.
+- **App Groups** capability with `group.app.withoutprice` (`ios/Runner/Runner.entitlements`).
+- `ios/Runner/PrivacyInfo.xcprivacy` is a member of the **Runner** target.
 
-1. File > New > Target > **Widget Extension**.
-2. Product name **VerseWidget**. Uncheck "Include Live Activity", "Include Control" and "Include Configuration App Intent".
-3. When asked to activate the scheme, choose Activate.
-4. Delete the template `.swift` files Xcode generated in `ios/VerseWidget/` (move them to Trash).
-5. Add every file in `ios/VerseWidgetSources/` to the **VerseWidget** target:
-   `VerseWidgetBundle.swift` (entry point), `VerseTimelineProvider.swift`, `VerseStore.swift`,
-   `VerseWidgetView.swift`, `WidgetStyle.swift`, and `PrivacyInfo.xcprivacy`.
-6. Add `mobile/assets/verses.json` to the **VerseWidget** target as a reference, not a copy,
-   so it stays in sync with the build script. Leave "Copy items if needed" unchecked.
-7. VerseWidget target > General: Minimum Deployments **iOS 17.0**.
-8. VerseWidget target > Signing & Capabilities: same team, add **App Groups** > `group.app.withoutprice`.
-   Its bundle ID should be `app.withoutprice.VerseWidget`.
-9. Runner target > Build Phases: make sure **Embed Foundation Extensions** contains VerseWidget.appex
-   and runs *before* "Thin Binary". (Flutter projects sometimes fail with a "cycle" error otherwise.)
+## 3. The widget extension
+
+Also already in the project. For reference, this is how it is set up:
+
+- Target **VerseWidgetExtension** (Widget Extension template, without Live Activity, Control or
+  Configuration App Intent), bundle ID `app.withoutprice.VerseWidget`, same team, minimum iOS 17.0.
+- `ios/VerseWidget/` is a folder Xcode keeps in sync with the target: every file in it is part of the
+  widget automatically (only `Info.plist` is excluded from resources). It holds
+  `VerseWidgetBundle.swift` (entry point), `VerseTimelineProvider.swift`, `VerseStore.swift`,
+  `VerseWidgetView.swift`, `WidgetStyle.swift`, `PrivacyInfo.xcprivacy` and `Assets.xcassets`.
+- `mobile/assets/verses.json` is added to the widget's Resources as a reference, not a copy, so it
+  stays in sync with `tools/build_verses.py`.
+- **App Groups** > `group.app.withoutprice` (`ios/VerseWidgetExtension.entitlements`).
+- Runner target > Build Phases: **Embed Foundation Extensions** (VerseWidgetExtension.appex) runs
+  *before* "Thin Binary". Flutter projects fail with a "cycle" error otherwise.
 
 ## 4. Test
 
