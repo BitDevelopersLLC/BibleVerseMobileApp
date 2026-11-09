@@ -28,21 +28,40 @@ struct VerseWidgetView: View {
     .containerBackground(.clear, for: .widget)
   }
 
-  /// The main lock screen widget: up to three lines of verse plus the reference.
+  /// Verse font sizes for the rectangular widget, largest first. The widget uses the largest size
+  /// at which the whole verse fits, so short verses fill the box and long ones still show in full.
+  private static let rectangularFontSizes: [CGFloat] = [22, 20, 18, 17, 16, 15, 14, 13, 12, 11]
+
+  /// The main lock screen widget: the verse, centered and as large as fits, above the reference.
   /// The system tints lock screen widgets to match the wallpaper, so no colors are set here.
   private var rectangular: some View {
-    VStack(alignment: .leading, spacing: 1) {
-      Text(entry.text)
-        .font(.system(.caption, design: .serif))
-        .lineLimit(3)
-        .minimumScaleFactor(0.7)
+    VStack(spacing: 2) {
+      ViewThatFits(in: .vertical) {
+        ForEach(Self.rectangularFontSizes, id: \.self) { size in
+          rectangularVerse(size: size)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        // Fallback for a verse too long even at the smallest size: shrink a little more, then truncate.
+        rectangularVerse(size: Self.rectangularFontSizes.last ?? 11)
+          .minimumScaleFactor(0.85)
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
       Text(entry.reference)
-        .font(.system(size: 10, weight: .semibold))
+        .font(.system(size: 11, weight: .semibold))
         .lineLimit(1)
+        .minimumScaleFactor(0.8)
         .widgetAccentable()
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
+    .multilineTextAlignment(.center)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .containerBackground(.clear, for: .widget)
+  }
+
+  /// The verse text for the rectangular widget at a given font size.
+  private func rectangularVerse(size: CGFloat) -> some View {
+    Text(entry.text)
+      .font(.system(size: size, weight: .medium, design: .serif))
+      .lineSpacing(-1)
   }
 
   /// Home screen and StandBy: the verse on the user's chosen gradient.
