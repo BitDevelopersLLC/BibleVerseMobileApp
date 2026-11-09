@@ -77,6 +77,6 @@ struct VerseWidgetView: View {
     }
     .foregroundStyle(.white)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-    .containerBackground(WidgetStyle(id: entry.styleId).gradient, for: .widget)
+    .containerBackground(entry.style.gradient, for: .widget)
   }
 }

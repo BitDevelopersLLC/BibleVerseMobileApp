@@ -19,7 +19,7 @@ struct VerseWidget: Widget {
       VerseWidgetView(entry: entry)
     }
     .configurationDisplayName("Verse")
-    .description("Today's verse. Changes every day.")
+    .description("A new verse every day, or every hour if you choose in the app.")
     .supportedFamilies([.accessoryRectangular, .accessoryInline, .systemSmall, .systemMedium])
   }
 }

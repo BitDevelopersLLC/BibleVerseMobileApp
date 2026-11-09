@@ -1,6 +1,6 @@
 import WidgetKit
 
-/// One day's verse, as shown by the widget.
+/// One verse, as shown by the widget from `date` until the next entry.
 struct VerseEntry: TimelineEntry {
   /// When WidgetKit should start showing this entry.
   let date: Date
@@ -10,8 +10,8 @@ struct VerseEntry: TimelineEntry {
   let text: String
   /// Short translation code, for example "BSB".
   let translationId: String
-  /// Background style id. See `WidgetStyle`.
-  let styleId: String
+  /// Background for the home screen and StandBy widget.
+  let style: WallpaperStyle
 
   /// Shown in the widget gallery and while data is loading.
   static let placeholder = VerseEntry(
@@ -19,31 +19,54 @@ struct VerseEntry: TimelineEntry {
     reference: "Psalm 119:105",
     text: "Your word is a lamp to my feet and a light to my path.",
     translationId: "BSB",
-    styleId: WidgetStyle.dawn.rawValue
+    style: .dawn
   )
+
+  /// The entry for the moment `date`, or `nil` if the bundled verse data can't be read.
+  static func at(_ date: Date) -> VerseEntry? {
+    VerseStore.verse(at: date).map { verse in
+      VerseEntry(
+        date: date,
+        reference: verse.reference,
+        text: verse.text,
+        translationId: verse.translationId,
+        style: verse.style
+      )
+    }
+  }
 }
 
-/// Supplies a week of entries at a time, one per local midnight.
+/// Supplies the widget's verses ahead of time, one entry per rotation slot.
+///
+/// With the daily cadence a timeline covers the next week (one entry per local midnight); with
+/// the hourly cadence it covers the next day (one entry per hour). WidgetKit switches entries
+/// on time by itself and asks for a new timeline when this one runs out. The app also reloads
+/// the timeline whenever the user changes a setting (`AppDelegate`).
 struct VerseTimelineProvider: TimelineProvider {
-  /// How many days ahead each timeline covers. WidgetKit asks for a new one when it runs out.
-  private static let daysPerTimeline = 7
+  /// How many upcoming slots each timeline includes, after the current one.
+  private static func upcomingSlotCount(for cadence: VerseCadence) -> Int {
+    switch cadence {
+    case .daily: 7
+    case .hourly: 24
+    }
+  }
 
   func placeholder(in context: Context) -> VerseEntry {
     .placeholder
   }
 
   func getSnapshot(in context: Context, completion: @escaping (VerseEntry) -> Void) {
-    completion(VerseStore.entry(for: .now) ?? .placeholder)
+    completion(VerseEntry.at(.now) ?? .placeholder)
   }
 
   func getTimeline(in context: Context, completion: @escaping (Timeline<VerseEntry>) -> Void) {
-    let calendar = Calendar.current
-    let today = calendar.startOfDay(for: .now)
+    let cadence = SharedSettings.cadence
 
-    var entries = [VerseStore.entry(for: .now)].compactMap { $0 }
-    for offset in 1...Self.daysPerTimeline {
-      if let midnight = calendar.date(byAdding: .day, value: offset, to: today),
-         let entry = VerseStore.entry(for: midnight) {
+    var entries = [VerseEntry.at(.now)].compactMap { $0 }
+    var slotStart = Date.now
+    for _ in 0..<Self.upcomingSlotCount(for: cadence) {
+      slotStart = cadence.startOfNextSlot(after: slotStart)
+      if let entry = VerseEntry.at(slotStart) {
         entries.append(entry)
       }
     }

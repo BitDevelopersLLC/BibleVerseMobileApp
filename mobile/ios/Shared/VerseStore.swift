@@ -12,46 +12,40 @@ struct VerseFile: Decodable {
     let text: [String: String]
   }
 
-  /// All verses, in daily rotation order.
+  /// All verses, in rotation order.
   let verses: [Item]
 }
 
-/// Chooses the verse for a given day.
-///
-/// The rule is shared by every platform: index = (days since 1970-01-01 for the local
-/// calendar date) mod (number of verses). Dart (`verse_library.dart`) and Kotlin
-/// (`DailyVerse.kt`) implement the same calculation. Change all three together.
-enum DailyVerse {
-  private static let secondsPerDay: TimeInterval = 86_400
+/// The verse to show at a given moment, with the user's current choices.
+struct CurrentVerse {
+  /// Stable identifier, for example "JHN_3_16".
+  let id: String
+  /// Human-readable reference, for example "John 3:16".
+  let reference: String
+  /// The verse text in `translationId`.
+  let text: String
+  /// Translation code of `text`, for example "BSB".
+  let translationId: String
+  /// The chosen wallpaper background.
+  let style: WallpaperStyle
+  /// Where the verse sits on the wallpaper.
+  let position: VersePosition
 
-  /// Days since 1970-01-01 for the calendar date of `date` in the device's time zone.
-  static func localEpochDay(for date: Date) -> Int {
-    // Always Gregorian, so the result does not depend on the user's calendar setting.
-    var local = Calendar(identifier: .gregorian)
-    local.timeZone = .current
-    let day = local.dateComponents([.year, .month, .day], from: date)
-
-    var utc = Calendar(identifier: .gregorian)
-    utc.timeZone = TimeZone(identifier: "UTC")!
-    let midnightUTC = utc.date(from: day)!
-    return Int((midnightUTC.timeIntervalSince1970 / secondsPerDay).rounded(.down))
-  }
-
-  /// Position in a list of `count` verses for `epochDay`, always in `0..<count`.
-  static func index(forEpochDay epochDay: Int, count: Int) -> Int {
-    ((epochDay % count) + count) % count
+  /// The reference line drawn on wallpapers, for example "John 3:16 (BSB)".
+  /// Matches the reference line in the Flutter app.
+  var referenceWithTranslation: String {
+    "\(reference) (\(translationId))"
   }
 }
 
-/// Reads the bundled verse data and the choices the app shares through the App Group.
-/// Nothing is downloaded.
+/// Reads the bundled verse data and picks the verse for a moment in time. Nothing is downloaded.
+///
+/// The rotation rule (`verseCount` slots, see `VerseCadence.slot(containing:)`) is shared by
+/// every platform: Dart (`verse_library.dart`) and Kotlin (`DailyVerse.kt`) implement the same
+/// calculation so the app, the Android wallpaper, the widget and the Shortcuts action always
+/// agree. Change all three together.
 enum VerseStore {
-  /// Must match `AppDelegate.appGroup` and both targets' App Group capability.
-  static let appGroup = "group.app.withoutprice"
-
-  private static let defaultTranslationId = "BSB"
-
-  /// Parsed once per extension process. `nil` if the data file is missing from the target.
+  /// Parsed once per process. `nil` if `verses.json` is missing from the target's resources.
   private static let file: VerseFile? = {
     guard let url = Bundle.main.url(forResource: "verses", withExtension: "json"),
           let data = try? Data(contentsOf: url) else {
@@ -60,24 +54,30 @@ enum VerseStore {
     return try? JSONDecoder().decode(VerseFile.self, from: data)
   }()
 
-  /// The entry for the calendar day containing `date`, using the user's translation and style.
-  static func entry(for date: Date) -> VerseEntry? {
+  /// Index into a list of `count` verses for rotation `slot`, always in `0..<count`.
+  static func index(forSlot slot: Int, count: Int) -> Int {
+    ((slot % count) + count) % count
+  }
+
+  /// The verse for the moment `date`, using the translation, style, position and cadence the
+  /// user chose in the app. Returns `nil` only if the bundled data can't be read.
+  static func verse(at date: Date) -> CurrentVerse? {
     guard let verses = file?.verses, !verses.isEmpty else {
       return nil
     }
-    let shared = UserDefaults(suiteName: appGroup)
-    let index = DailyVerse.index(forEpochDay: DailyVerse.localEpochDay(for: date), count: verses.count)
-    let item = verses[index]
+    let slot = SharedSettings.cadence.slot(containing: date)
+    let item = verses[index(forSlot: slot, count: verses.count)]
 
-    let wanted = shared?.string(forKey: "translation") ?? defaultTranslationId
-    let translationId = item.text[wanted] != nil ? wanted : defaultTranslationId
+    let wanted = SharedSettings.translationId
+    let translationId = item.text[wanted] != nil ? wanted : SharedSettings.defaultTranslationId
 
-    return VerseEntry(
-      date: date,
+    return CurrentVerse(
+      id: item.id,
       reference: item.ref,
       text: item.text[translationId] ?? "",
       translationId: translationId,
-      styleId: shared?.string(forKey: "style") ?? WidgetStyle.dawn.rawValue
+      style: SharedSettings.style,
+      position: SharedSettings.position
     )
   }
 }
