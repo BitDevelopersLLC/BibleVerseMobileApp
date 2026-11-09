@@ -46,6 +46,16 @@ between the app and its own widget on your phone.
 
 withoutprice.app uses no cookies, analytics, or trackers, and loads nothing from other websites.
 
+Like every website, our hosting provider's servers automatically record standard technical logs
+(IP address, browser type, the page requested, and the time). These logs are used only to keep the
+site running and secure. We don't use them to identify you or track you.
+
+## If you email us
+
+If you write to hello@withoutprice.app, we receive your email address and message. We use them
+only to reply to you. We never add you to a mailing list or share your address. Ask us anytime
+and we'll delete your messages.
+
 ## Children
 
 The app collects no information from anyone, including children.
@@ -55,6 +65,7 @@ The app collects no information from anyone, including children.
 If this policy ever changes, the new version will be published here and in the app's source
 code repository.
 
-## Contact
+## Who we are
 
-Questions: [hello@withoutprice.app](mailto:hello@withoutprice.app)
+Without Price is made by BitDevelopers LLC, which is responsible for this policy.
+Questions or requests: [hello@withoutprice.app](mailto:hello@withoutprice.app)

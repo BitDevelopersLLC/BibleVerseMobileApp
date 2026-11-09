@@ -3,6 +3,8 @@
 # Always use HTTPS. Browsers require it for .app domains anyway.
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
+# Leave certificate renewal (AutoSSL / Let's Encrypt) untouched.
+RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 <IfModule mod_headers.c>
