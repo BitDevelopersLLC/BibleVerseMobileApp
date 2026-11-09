@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 
+import '../wallpaper/verse_position.dart';
 import '../wallpaper/wallpaper_style.dart';
 
 /// Dart side of the `app.withoutprice/lockscreen` method channel.
@@ -25,13 +26,19 @@ abstract final class LockScreenChannel {
   /// Sends the current choices to the native side.
   ///
   /// On Android, [enabled] starts or stops the daily wallpaper job.
-  /// On iOS, the widget picks up [translationId] and [style] immediately.
+  /// On iOS, the widget picks up [translationId] and [style] immediately. [position] only
+  /// affects the Android wallpaper (iOS places widgets itself).
   static Future<void> configure({
     required bool enabled,
     required String translationId,
     required WallpaperStyle style,
-  }) =>
-      _invoke('configure', {'enabled': enabled, 'translation': translationId, 'style': style.name});
+    required VersePosition position,
+  }) => _invoke('configure', {
+    'enabled': enabled,
+    'translation': translationId,
+    'style': style.name,
+    'position': position.name,
+  });
 
   /// Android: draws and sets today's verse right away instead of waiting for the next run.
   static Future<void> applyNow() => _invoke('applyNow');

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import '../../data/app_settings.dart';
+import 'verse_position_picker.dart';
 import 'wallpaper_preview.dart';
 import 'wallpaper_style_picker.dart';
 
@@ -48,6 +49,11 @@ class AndroidLockScreenPanel extends StatelessWidget {
         WallpaperStylePicker(
           selected: settings.style,
           onSelected: (style) => settings.style = style,
+        ),
+        const SizedBox(height: 16),
+        VersePositionPicker(
+          selected: settings.versePosition,
+          onSelected: (position) => settings.versePosition = position,
         ),
         const SizedBox(height: 16),
         WallpaperPreview(image: preview),

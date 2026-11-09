@@ -11,7 +11,7 @@ import io.flutter.plugin.common.MethodChannel
  *
  * The Dart side is `lib/platform/lock_screen_channel.dart`. Methods:
  * - `isSupported` returns whether this device lets apps change the lock screen wallpaper.
- * - `configure` takes `{enabled, translation, style}`, saves them, and starts or stops the daily job.
+ * - `configure` takes `{enabled, translation, style, position}`, saves them, and starts or stops the daily job.
  * - `applyNow` draws and sets today's verse immediately.
  */
 class LockScreenChannel private constructor(private val context: Context) : MethodChannel.MethodCallHandler {
@@ -26,6 +26,7 @@ class LockScreenChannel private constructor(private val context: Context) : Meth
                         enabled = call.argument<Boolean>("enabled") ?: false,
                         translationId = call.argument<String>("translation") ?: LockScreenPreferences.DEFAULT_TRANSLATION,
                         styleId = call.argument<String>("style") ?: LockScreenPreferences.DEFAULT_STYLE,
+                        positionId = call.argument<String>("position") ?: LockScreenPreferences.DEFAULT_POSITION,
                     ),
                 )
                 result.success(null)

@@ -49,7 +49,7 @@ FEATURES
 • 168 hand-picked verses about hope, strength, peace, and God's love, each short enough for a lock screen
 • Four trusted public-domain translations: Berean Standard Bible (BSB), King James Version (KJV), World English Bible (WEB), and American Standard Version (ASV)
 • Four calm background styles: Dawn, Night, Olive, and Stone
-• Placed below the clock, so the verse is never hidden
+• Choose where the verse sits (top, upper middle, lower middle, or bottom) so your clock and fingerprint icon never cover it
 • Light on battery: one small update a day
 
 PRIVACY

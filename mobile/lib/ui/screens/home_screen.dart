@@ -82,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     enabled: Platform.isIOS || _settings.dailyLockScreen,
     translationId: _settings.translationId,
     style: _settings.style,
+    position: _settings.versePosition,
   );
 
   String get _referenceLine => '${_verse.reference} (${_settings.translationId})';
@@ -92,10 +93,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     text: _verse.textIn(_settings.translationId),
     reference: _referenceLine,
     style: _settings.style,
+    position: _settings.versePosition,
   );
 
   Future<Uint8List> get _previewImage {
-    final key = '${_verse.id}|${_settings.translationId}|${_settings.style.name}';
+    final key =
+        '${_verse.id}|${_settings.translationId}|${_settings.style.name}|${_settings.versePosition.name}';
     if (key != _previewKey || _preview == null) {
       _previewKey = key;
       _preview = _wallpaperPng(_previewSize);

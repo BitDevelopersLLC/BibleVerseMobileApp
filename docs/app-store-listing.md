@@ -64,6 +64,7 @@ FEATURES
 • 168 hand-picked verses about hope, strength, peace, and God's love, each short enough for a lock screen
 • Four trusted public-domain translations: Berean Standard Bible (BSB), King James Version (KJV), World English Bible (WEB), and American Standard Version (ASV)
 • Four calm background styles: Dawn, Night, Olive, and Stone
+• Choose where the verse sits on your wallpaper: top, upper middle, lower middle, or bottom
 • Home screen and StandBy widgets too
 
 Questions or ideas? Write to hello@withoutprice.app. We read every message.

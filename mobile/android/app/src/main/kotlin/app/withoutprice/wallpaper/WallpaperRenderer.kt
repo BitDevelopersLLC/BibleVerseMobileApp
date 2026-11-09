@@ -21,15 +21,6 @@ object WallpaperRenderer {
     /** Horizontal margin on each side, as a fraction of the width. */
     private const val MARGIN_FRACTION = 0.10f
 
-    /**
-     * Top of the text band, below the lock screen clock. With no notifications, Android 15
-     * shows a large clock centered on the screen that reaches about 66% of the height.
-     */
-    private const val BAND_TOP_FRACTION = 0.67f
-
-    /** Height of the text band. The unlock icon and shortcut buttons sit below it (from ~85%). */
-    private const val BAND_HEIGHT_FRACTION = 0.16f
-
     /** Starting verse font size, as a fraction of the width. */
     private const val START_FONT_FRACTION = 0.062f
 
@@ -53,8 +44,11 @@ object WallpaperRenderer {
 
     private const val SHADOW_COLOR = 0x66000000
 
-    /** Returns a new [width] x [height] bitmap of [verse] on [style]. The caller recycles it. */
-    fun render(width: Int, height: Int, verse: Verse, style: WallpaperStyle): Bitmap {
+    /**
+     * Returns a new [width] x [height] bitmap of [verse] on [style], centered vertically in the
+     * area chosen by [position]. The caller recycles it.
+     */
+    fun render(width: Int, height: Int, verse: Verse, style: WallpaperStyle, position: VersePosition): Bitmap {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         canvas.drawPaint(Paint().apply {
@@ -63,8 +57,8 @@ object WallpaperRenderer {
 
         val margin = width * MARGIN_FRACTION
         val textWidth = (width - 2 * margin).toInt()
-        val bandTop = height * BAND_TOP_FRACTION
-        val bandHeight = height * BAND_HEIGHT_FRACTION
+        val bandTop = height * position.bandTop
+        val bandHeight = height * (position.bandBottom - position.bandTop)
         val reference = "${verse.reference} (${verse.translationId})"
         val serif = Typeface.create(Typeface.SERIF, Typeface.NORMAL)
         val boldSans = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)

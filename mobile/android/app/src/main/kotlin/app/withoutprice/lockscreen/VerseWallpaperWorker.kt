@@ -11,6 +11,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import app.withoutprice.verses.BundledVerses
 import app.withoutprice.verses.DailyVerse
+import app.withoutprice.wallpaper.VersePosition
 import app.withoutprice.wallpaper.WallpaperRenderer
 import app.withoutprice.wallpaper.WallpaperStyle
 
@@ -34,7 +35,13 @@ class VerseWallpaperWorker(context: Context, params: WorkerParameters) : Worker(
         return try {
             val verse = DailyVerse.pick(BundledVerses.load(applicationContext), today, choices.translationId)
             val size = portraitScreenSize()
-            val bitmap = WallpaperRenderer.render(size.width, size.height, verse, WallpaperStyle.fromId(choices.styleId))
+            val bitmap = WallpaperRenderer.render(
+                size.width,
+                size.height,
+                verse,
+                WallpaperStyle.fromId(choices.styleId),
+                VersePosition.fromId(choices.positionId),
+            )
             try {
                 WallpaperManager.getInstance(applicationContext)
                     .setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK)

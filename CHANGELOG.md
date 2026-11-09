@@ -12,6 +12,7 @@ uses [Semantic Versioning](https://semver.org/).
 - iOS: lock screen and home screen widget source, a "Save today's wallpaper to Photos" option,
   and step-by-step setup guides.
 - Four wallpaper styles with a live preview.
+- Verse position setting (top, upper middle, lower middle, bottom) so the clock or fingerprint icon never covers the verse.
 - An About screen with the privacy promise and translation notices.
 - `tools/build_verses.py` to regenerate the bundled verse data from eBible.org.
 - Licensed under GPL-3.0.

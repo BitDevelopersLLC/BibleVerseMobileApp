@@ -12,7 +12,12 @@ import android.content.SharedPreferences
 class LockScreenPreferences(context: Context) {
 
     /** What the user picked in the app. */
-    data class Choices(val enabled: Boolean, val translationId: String, val styleId: String)
+    data class Choices(
+        val enabled: Boolean,
+        val translationId: String,
+        val styleId: String,
+        val positionId: String,
+    )
 
     private val prefs = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
 
@@ -22,11 +27,13 @@ class LockScreenPreferences(context: Context) {
             enabled = prefs.getBoolean(KEY_ENABLED, false),
             translationId = prefs.getString(KEY_TRANSLATION, null) ?: DEFAULT_TRANSLATION,
             styleId = prefs.getString(KEY_STYLE, null) ?: DEFAULT_STYLE,
+            positionId = prefs.getString(KEY_POSITION, null) ?: DEFAULT_POSITION,
         )
         set(value) = edit {
             putBoolean(KEY_ENABLED, value.enabled)
             putString(KEY_TRANSLATION, value.translationId)
             putString(KEY_STYLE, value.styleId)
+            putString(KEY_POSITION, value.positionId)
         }
 
     /** The epoch day whose verse is currently on the lock screen, or `null` if none has been set. */
@@ -45,10 +52,14 @@ class LockScreenPreferences(context: Context) {
         /** Style used until the user picks one. Matches `WallpaperStyle.dawn`. */
         const val DEFAULT_STYLE = "dawn"
 
+        /** Position used until the user picks one. Matches `VersePosition.DEFAULT`. */
+        const val DEFAULT_POSITION = "bottom"
+
         private const val FILE_NAME = "lockscreen"
         private const val KEY_ENABLED = "enabled"
         private const val KEY_TRANSLATION = "translation"
         private const val KEY_STYLE = "style"
+        private const val KEY_POSITION = "position"
         private const val KEY_LAST_APPLIED_DAY = "lastAppliedDay"
     }
 }

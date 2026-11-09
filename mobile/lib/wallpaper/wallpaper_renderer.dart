@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import '../ui/app_theme.dart';
+import 'verse_position.dart';
 import 'wallpaper_style.dart';
 
 /// Draws a full-screen verse wallpaper as a PNG image.
@@ -12,13 +13,6 @@ import 'wallpaper_style.dart';
 abstract final class WallpaperRenderer {
   /// Horizontal margin on each side, as a fraction of the width.
   static const _marginFraction = 0.10;
-
-  /// Top of the text band, below the lock screen clock. With no notifications, Android 15
-  /// shows a large clock centered on the screen that reaches about 66% of the height.
-  static const _bandTopFraction = 0.67;
-
-  /// Height of the text band. The unlock icon and shortcut buttons sit below it (from ~85%).
-  static const _bandHeightFraction = 0.16;
 
   /// Starting verse font size, as a fraction of the width.
   static const _startFontFraction = 0.062;
@@ -38,13 +32,15 @@ abstract final class WallpaperRenderer {
   /// Line height multiplier for all text.
   static const _lineHeight = 1.25;
 
-  /// Renders [text] and [reference] on [style] at [width] x [height] pixels.
+  /// Renders [text] and [reference] on [style] at [width] x [height] pixels, centered
+  /// vertically in the area chosen by [position].
   static Future<Uint8List> renderPng({
     required int width,
     required int height,
     required String text,
     required String reference,
     required WallpaperStyle style,
+    required VersePosition position,
   }) async {
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
@@ -62,8 +58,8 @@ abstract final class WallpaperRenderer {
 
     final margin = w * _marginFraction;
     final textWidth = w - 2 * margin;
-    final bandTop = h * _bandTopFraction;
-    final bandHeight = h * _bandHeightFraction;
+    final bandTop = h * position.bandTop;
+    final bandHeight = h * (position.bandBottom - position.bandTop);
 
     // Shrink long verses until they fit inside the band.
     var fontSize = w * _startFontFraction;
