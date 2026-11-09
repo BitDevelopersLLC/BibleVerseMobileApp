@@ -1,0 +1,487 @@
+/* Without Price website. No external fonts, scripts, cookies, or trackers. */
+
+:root {
+  --purple: #3b2a4d;
+  --purple-soft: #5a4470;
+  --peach: #c9826b;
+  --ink: #241b2e;
+  --muted: #5d5366;
+  --paper: #fdf9f7;
+  --card: #ffffff;
+  --line: #ebe3e6;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius: 18px;
+  --max: 1100px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--purple-soft);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+.container {
+  width: min(100% - 32px, var(--max));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  background: #fff;
+  padding: 8px 12px;
+  z-index: 10;
+}
+
+/* Header */
+
+.site-header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  font: 700 22px var(--serif);
+}
+
+.brand img {
+  width: 40px;
+}
+
+.site-nav {
+  display: flex;
+  gap: 24px;
+}
+
+.site-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.site-nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Pages with a light header (privacy) */
+
+.site-header.light {
+  position: static;
+  background: var(--purple);
+}
+
+/* Hero */
+
+.hero {
+  background: linear-gradient(140deg, var(--purple) 0%, #6a4a62 55%, var(--peach) 100%);
+  color: #fff;
+  padding: 120px 0 0;
+  overflow: hidden;
+}
+
+.hero .container {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 6vw, 60px);
+}
+
+.hero p {
+  font-size: 19px;
+  max-width: 34em;
+  opacity: 0.95;
+}
+
+.coming-soon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.coming-soon li {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 15px;
+}
+
+.coming-soon li:first-child {
+  background: #fff;
+  color: var(--purple);
+  border-color: #fff;
+  font-weight: 700;
+}
+
+.hero .notify {
+  font-size: 16px;
+}
+
+.hero .notify a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.hero-phone {
+  justify-self: center;
+  width: min(300px, 70vw);
+  margin-bottom: -60px;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.35));
+}
+
+/* Sections */
+
+section {
+  padding: 96px 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-title h2 {
+  font-size: clamp(28px, 4vw, 40px);
+}
+
+.section-title p {
+  color: var(--muted);
+  max-width: 36em;
+  margin: 0 auto;
+}
+
+.promise {
+  padding-top: 140px;
+}
+
+.cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.card h3 {
+  font-size: 21px;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.how {
+  background: #f4ecea;
+}
+
+.how .columns {
+  display: grid;
+  gap: 24px;
+}
+
+.how .card ol {
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--muted);
+}
+
+.how .card li + li {
+  margin-top: 6px;
+}
+
+/* Screenshots */
+
+.gallery {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 8px 4px 24px;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery figure {
+  flex: 0 0 auto;
+  margin: 0;
+  scroll-snap-align: center;
+  text-align: center;
+}
+
+.gallery img,
+.placeholder.phone {
+  width: 220px;
+}
+
+.gallery figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.platform-label {
+  font: 700 20px var(--serif);
+  margin: 40px 0 12px;
+}
+
+/* Placeholders for iPhone and iPad screenshots that don't exist yet.
+   Replace each .placeholder with <img src="assets/img/<file>" alt="..."> when the
+   screenshot is ready. The file names are in the HTML comments. */
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  border: 2px dashed #cbb7c2;
+  border-radius: 28px;
+  background: repeating-linear-gradient(45deg, #fbf6f8, #fbf6f8 12px, #f5eef1 12px, #f5eef1 24px);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.placeholder.phone {
+  aspect-ratio: 1320 / 2868;
+}
+
+.placeholder.tablet {
+  width: 360px;
+  aspect-ratio: 2064 / 2752;
+}
+
+/* Translations */
+
+.translations ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 640px;
+  display: grid;
+  gap: 12px;
+}
+
+.translations li {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+.translations .code {
+  font-weight: 700;
+  color: var(--purple);
+  min-width: 3em;
+}
+
+.translations .note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+/* Verse */
+
+.verse {
+  background: var(--purple);
+  color: #fff;
+  text-align: center;
+}
+
+.verse blockquote {
+  margin: 0 auto;
+  max-width: 30em;
+  font: 400 clamp(22px, 3vw, 30px)/1.5 var(--serif);
+}
+
+.verse cite {
+  display: block;
+  margin-top: 16px;
+  font: 600 15px var(--sans);
+  font-style: normal;
+  opacity: 0.85;
+}
+
+/* Prose pages (privacy) */
+
+.prose {
+  max-width: 760px;
+  padding-block: 56px 80px;
+}
+
+.prose h1 {
+  font-size: 40px;
+}
+
+.prose h2 {
+  font-size: 24px;
+  margin-top: 1.6em;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 20px;
+  font-size: 16px;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.prose code {
+  font-size: 14px;
+  background: #f1eaed;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.lead {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+/* Footer */
+
+.site-footer {
+  background: #20172a;
+  color: #d9cfdc;
+  padding: 40px 0;
+  font-size: 15px;
+}
+
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  justify-content: space-between;
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.site-footer .small {
+  width: 100%;
+  margin: 0;
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+/* Larger screens */
+
+@media (min-width: 860px) {
+  .hero .container {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+
+  .how .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Phones */
+
+@media (max-width: 600px) {
+  .site-nav {
+    display: none;
+  }
+
+  section {
+    padding: 64px 0;
+  }
+
+  .promise {
+    padding-top: 110px;
+  }
+
+  .gallery img,
+  .placeholder.phone {
+    width: 180px;
+  }
+
+  .placeholder.tablet {
+    width: 280px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -4,6 +4,8 @@
 
 _Last updated: November 8, 2026_
 
+<!-- Keep in sync with website/privacy.html. -->
+
 ## What we collect
 
 Nothing. Without Price has:
@@ -31,7 +33,7 @@ The last four come from Android's WorkManager library, which runs the once-a-day
 The app does **not** have the `INTERNET` permission, so it is technically unable to send data
 anywhere.
 
-## iPhone permissions
+## iPhone and iPad permissions
 
 | Permission | Why |
 |---|---|
@@ -39,6 +41,10 @@ anywhere.
 
 The lock screen widget reads your translation and style choice from storage shared only
 between the app and its own widget on your phone.
+
+## This website
+
+withoutprice.app uses no cookies, analytics, or trackers, and loads nothing from other websites.
 
 ## Children
 
@@ -51,4 +57,4 @@ code repository.
 
 ## Contact
 
-Questions: see [withoutprice.app](https://withoutprice.app).
+Questions: [hello@withoutprice.app](mailto:hello@withoutprice.app)

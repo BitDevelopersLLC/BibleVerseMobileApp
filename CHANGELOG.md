@@ -15,6 +15,7 @@ uses [Semantic Versioning](https://semver.org/).
 - An About screen with the privacy promise and translation notices.
 - `tools/build_verses.py` to regenerate the bundled verse data from eBible.org.
 - Licensed under GPL-3.0.
+- withoutprice.app website (coming-soon home page and privacy policy).
 
 ### Fixed
 - Turning on the daily lock screen no longer starts two wallpaper updates at the same moment.

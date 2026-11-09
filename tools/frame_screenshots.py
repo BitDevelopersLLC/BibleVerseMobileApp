@@ -25,12 +25,13 @@ SERIF_FONT = "C:/Windows/Fonts/georgiab.ttf"
 SERIF = ImageFont.truetype(SERIF_FONT, round(74 * SCALE))
 
 #: (raw file, caption, output name), in store order.
+#: Google Play rejects price/promotion wording such as "free" in graphics, so captions avoid it.
 SHOTS = [
     ("02-lock-screen.png", "A new Bible verse on\nyour lock screen,\nevery day", "01-lock-screen"),
     ("01-home.png", "Four trusted\npublic-domain\ntranslations", "02-translations"),
     ("03-styles.png", "Choose the look\nyou love", "03-styles"),
     ("05-lock-screen-night.png", "Set it once.\nIt changes every\nmorning.", "04-changes-daily"),
-    ("04-about.png", "Free forever.\nNo ads.\nNothing collected.", "05-privacy"),
+    ("04-about.png", "No ads.\nNo tracking.\nNothing collected.", "05-privacy"),
 ]
 
 

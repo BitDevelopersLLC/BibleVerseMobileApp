@@ -4,6 +4,10 @@ CLAUDE.md
 ClaudeLog.md
 trademark-search/
 
+# Brand assets (logo, icons, screenshots, store graphics) are not part of the open-source release.
+media/
+website/assets/img/
+
 # Bible source downloads stay outside the repo.
 _downloads/
 *.zip

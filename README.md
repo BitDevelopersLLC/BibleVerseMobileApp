@@ -51,7 +51,12 @@ tools/
   verse_refs.txt                         The curated verse list
   build_verses.py                        Builds mobile/assets/verses.json from eBible.org
 docs/ios-setup.md                        Xcode steps for the widget extension
+website/                                 withoutprice.app (static HTML/CSS, no scripts or trackers)
 ```
+
+The app's name and logo, the screenshots, and the website images are brand assets. They are kept
+out of this repository and are not covered by the GPL. `tools/make_brand_graphics.py` and
+`tools/frame_screenshots.py` rebuild them from the private originals.
 
 ### One rule, three languages
 

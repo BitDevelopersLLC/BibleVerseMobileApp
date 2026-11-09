@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy | Without Price</title>
+  <meta name="description" content="Without Price collects no data. No account, no analytics, no tracking, no ads.">
+  <link rel="canonical" href="https://withoutprice.app/privacy.html">
+  <meta name="theme-color" content="#3b2a4d">
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header light">
+    <div class="container">
+      <a class="brand" href="./">
+        <img src="assets/img/logo-white.png" alt="" width="40" height="40">
+        Without Price
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="./#how">How it works</a>
+        <a href="./#screens">Screenshots</a>
+        <a href="privacy.html" aria-current="page">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Keep in sync with PRIVACY.md in the repository. -->
+  <main id="main" class="container prose">
+    <h1>Privacy Policy</h1>
+    <p class="lead">Without Price collects no data. None.</p>
+    <p><em>Last updated: November 8, 2026</em></p>
+
+    <h2>What we collect</h2>
+    <p>Nothing. Without Price has:</p>
+    <ul>
+      <li>no account or sign-in,</li>
+      <li>no analytics, tracking, or advertising,</li>
+      <li>no crash reporting,</li>
+      <li>no server. The app never connects to the internet.</li>
+    </ul>
+    <p>
+      All Bible verses are built into the app. Your choices (translation, background color, and whether
+      the daily lock screen is on) are stored only on your phone and are deleted when you uninstall the app.
+    </p>
+
+    <h2>Android permissions</h2>
+    <table>
+      <thead><tr><th>Permission</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>SET_WALLPAPER</code></td><td>To put the verse on your lock screen.</td></tr>
+        <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>To keep the daily update running after your phone restarts.</td></tr>
+        <tr><td><code>WAKE_LOCK</code></td><td>To let the daily update finish while the screen is off.</td></tr>
+        <tr><td><code>FOREGROUND_SERVICE</code></td><td>Required by Android's background-job library. Not used to show anything.</td></tr>
+        <tr><td><code>ACCESS_NETWORK_STATE</code></td><td>Required by Android's background-job library. It can only tell whether a network exists. It cannot send or receive data.</td></tr>
+      </tbody>
+    </table>
+    <p>
+      The last four come from Android's WorkManager library, which runs the once-a-day update. The app does
+      <strong>not</strong> have the <code>INTERNET</code> permission, so it is technically unable to send data anywhere.
+    </p>
+
+    <h2>iPhone and iPad permissions</h2>
+    <table>
+      <thead><tr><th>Permission</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Add to Photos</td><td>Only when you tap "Save today's wallpaper to Photos." The app can add that one picture. It cannot see your photos.</td></tr>
+      </tbody>
+    </table>
+    <p>The lock screen widget reads your translation and style choice from storage shared only between the app and its own widget on your device.</p>
+
+    <h2>This website</h2>
+    <p>withoutprice.app uses no cookies, analytics, or trackers, and loads nothing from other websites.</p>
+
+    <h2>Children</h2>
+    <p>The app collects no information from anyone, including children.</p>
+
+    <h2>Changes</h2>
+    <p>
+      If this policy ever changes, the new version will be published here and in the app's
+      <a href="https://github.com/BitDevelopersLLC/BibleVerseMobileApp">source code repository</a>.
+    </p>
+
+    <h2>Contact</h2>
+    <p>Questions: <a href="mailto:hello@withoutprice.app">hello@withoutprice.app</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 BitDevelopers LLC</span>
+      <nav aria-label="Footer">
+        <a href="./">Home</a>
+        <a href="https://github.com/BitDevelopersLLC/BibleVerseMobileApp">Source code</a>
+        <a href="mailto:hello@withoutprice.app">hello@withoutprice.app</a>
+      </nav>
+      <p class="small">This website uses no cookies, analytics, or trackers.</p>
+    </div>
+  </footer>
+</body>
+</html>
