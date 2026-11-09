@@ -3,7 +3,7 @@ import 'dart:ui';
 /// A background for the verse wallpaper and the home screen widget.
 ///
 /// The ids ([name]) and colors are duplicated in `WallpaperStyle.kt` (Android) and
-/// `WidgetStyle.swift` (iOS widget). Keep all three in sync.
+/// `WallpaperStyle.swift` (iOS widget and Shortcuts action). Keep all three in sync.
 enum WallpaperStyle {
   /// Warm purple fading to peach.
   dawn('Dawn', Color(0xFF3B2A4D), Color(0xFFC9826B), Color(0xFFFFFFFF)),

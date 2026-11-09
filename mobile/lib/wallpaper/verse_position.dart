@@ -5,8 +5,8 @@
 /// height, with 0 at the very top. Top and Bottom stop short of the screen edges because some
 /// lock screens (Pixel) magnify the wallpaper by about 12%.
 ///
-/// The ids ([name]) and fractions are duplicated in `VersePosition.kt` (Android). Keep both
-/// in sync.
+/// The ids ([name]) and fractions are duplicated in `VersePosition.kt` (Android) and
+/// `VersePosition.swift` (iOS Shortcuts action). Keep all three in sync.
 enum VersePosition {
   /// The top quarter (0-25%). Starts below the status bar.
   top('Top', 'Top', 0.08, 0.25),

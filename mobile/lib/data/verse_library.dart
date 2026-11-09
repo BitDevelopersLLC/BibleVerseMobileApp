@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
+import 'verse_cadence.dart';
+
 /// A public-domain Bible translation bundled with the app.
 class Translation {
   /// Creates a translation description.
@@ -80,25 +82,20 @@ class VerseLibrary {
   /// All bundled translations, in display order.
   final List<Translation> translations;
 
-  /// All curated verses, in daily rotation order.
+  /// All curated verses, in rotation order.
   final List<Verse> verses;
 
-  /// Days since 1970-01-01 for the local calendar date of [now] (today by default).
+  /// The verse for rotation [slot] (see [VerseCadence.slotContaining]). The list repeats once
+  /// every verse has been shown.
   ///
-  /// This is the daily-verse rule shared by every platform. Kotlin (`DailyVerse.kt`) and
-  /// Swift (`VerseStore.swift`) implement the same calculation so the app, the Android
-  /// wallpaper, and the iOS widget always show the same verse. Change all three together.
-  static int localEpochDay([DateTime? now]) {
-    final date = now ?? DateTime.now();
-    return DateTime.utc(date.year, date.month, date.day).millisecondsSinceEpoch ~/
-        Duration.millisecondsPerDay;
-  }
+  /// This is the rotation rule shared by every platform. Kotlin (`DailyVerse.kt`) and Swift
+  /// (`VerseStore.swift`) implement the same calculation so the app, the Android wallpaper, the
+  /// iOS widget and the Shortcuts action always show the same verse. Change all three together.
+  Verse verseForSlot(int slot) => verses[slot % verses.length];
 
-  /// The verse for a given [epochDay]. The list repeats once every verse has been shown.
-  Verse verseForDay(int epochDay) => verses[epochDay % verses.length];
-
-  /// Today's verse.
-  Verse get today => verseForDay(localEpochDay());
+  /// The verse to show at [now] (the current time by default) for [cadence].
+  Verse current(VerseCadence cadence, [DateTime? now]) =>
+      verseForSlot(cadence.slotContaining(now ?? DateTime.now()));
 
   /// The translation with [id], or the first translation if there is no match.
   Translation translation(String id) =>

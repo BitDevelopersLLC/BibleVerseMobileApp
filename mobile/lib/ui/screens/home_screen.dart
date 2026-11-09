@@ -12,11 +12,12 @@ import '../../wallpaper/wallpaper_renderer.dart';
 import '../widgets/android_lock_screen_panel.dart';
 import '../widgets/dedication_note.dart';
 import '../widgets/iphone_lock_screen_panel.dart';
+import '../widgets/verse_cadence_picker.dart';
 import '../widgets/verse_card.dart';
 import 'about_screen.dart';
 import 'iphone_setup_screen.dart';
 
-/// The main screen: today's verse, the translation picker, and lock screen setup.
+/// The main screen: the current verse, the translation and cadence pickers, and lock screen setup.
 class HomeScreen extends StatefulWidget {
   /// Creates the home screen.
   const HomeScreen({required this.library, required this.settings, super.key});
@@ -35,8 +36,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   /// Logical size of the in-app preview image. It is shown scaled down.
   static const _previewSize = Size(390, 844);
 
-  late Verse _verse = widget.library.today;
+  late Verse _verse = _currentVerse;
   bool _androidSupported = false;
+
+  /// Fires when the next verse is due (midnight, or the top of the hour) while the app is open.
+  Timer? _nextVerseTimer;
 
   /// Cached preview, rebuilt only when the verse, translation, or style changes.
   Future<Uint8List>? _preview;
@@ -51,21 +55,43 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     _settings.addListener(_onSettingsChanged);
     if (Platform.isAndroid) unawaited(_checkAndroidSupport());
     unawaited(_syncNative());
+    _scheduleNextVerse();
   }
 
   @override
   void dispose() {
+    _nextVerseTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     _settings.removeListener(_onSettingsChanged);
     super.dispose();
   }
 
-  /// Shows the new day's verse when the app comes back to the foreground after midnight.
+  /// The verse for the current time and the chosen cadence.
+  Verse get _currentVerse => widget.library.current(_settings.cadence);
+
+  /// Shows the current verse and arms the timer for the next one.
+  void _refreshVerse() {
+    setState(() => _verse = _currentVerse);
+    _scheduleNextVerse();
+  }
+
+  /// Arms [_nextVerseTimer] for the start of the next rotation slot.
+  void _scheduleNextVerse() {
+    _nextVerseTimer?.cancel();
+    final now = DateTime.now();
+    // A one-second margin makes sure the new slot has begun when the timer fires.
+    final delay =
+        _settings.cadence.startOfNextSlot(now).difference(now) + const Duration(seconds: 1);
+    _nextVerseTimer = Timer(delay, () {
+      if (mounted) _refreshVerse();
+    });
+  }
+
+  /// Shows the right verse when the app comes back to the foreground, since timers don't run
+  /// while it is in the background.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      setState(() => _verse = widget.library.today);
-    }
+    if (state == AppLifecycleState.resumed) _refreshVerse();
   }
 
   Future<void> _checkAndroidSupport() async {
@@ -74,7 +100,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   void _onSettingsChanged() {
-    setState(() {});
+    // The cadence may have changed, which changes the current verse and the next deadline.
+    _refreshVerse();
     unawaited(_syncNative());
   }
 
@@ -84,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     translationId: _settings.translationId,
     style: _settings.style,
     position: _settings.versePosition,
+    cadence: _settings.cadence,
   );
 
   String get _referenceLine => '${_verse.reference} (${_settings.translationId})';
@@ -160,7 +188,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
         children: [
-          VerseCard(text: _verse.textIn(translation.id), reference: _referenceLine),
+          VerseCard(
+            label: _settings.cadence.verseCardLabel,
+            text: _verse.textIn(translation.id),
+            reference: _referenceLine,
+          ),
           const SizedBox(height: 24),
           Text('Translation', style: textTheme.titleMedium),
           const SizedBox(height: 8),
@@ -175,6 +207,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           ),
           const SizedBox(height: 4),
           Text(translation.name, style: textTheme.bodySmall),
+          const SizedBox(height: 24),
+          VerseCadencePicker(
+            selected: _settings.cadence,
+            onSelected: (cadence) => _settings.cadence = cadence,
+          ),
           const SizedBox(height: 28),
           Text('Lock screen', style: textTheme.titleMedium),
           const SizedBox(height: 8),

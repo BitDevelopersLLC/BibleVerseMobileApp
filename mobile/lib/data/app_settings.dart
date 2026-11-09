@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../wallpaper/verse_position.dart';
 import '../wallpaper/wallpaper_style.dart';
+import 'verse_cadence.dart';
 import 'verse_library.dart';
 
 /// The user's choices, stored only on this device and never sent anywhere.
@@ -19,6 +20,7 @@ class AppSettings extends ChangeNotifier {
   static const _translationKey = 'translation';
   static const _styleKey = 'style';
   static const _positionKey = 'versePosition';
+  static const _cadenceKey = 'verseCadence';
   static const _dailyLockScreenKey = 'dailyLockScreen';
 
   final SharedPreferences _prefs;
@@ -35,6 +37,10 @@ class AppSettings extends ChangeNotifier {
   /// Where the verse sits on the wallpaper.
   VersePosition get versePosition => VersePosition.fromId(_prefs.getString(_positionKey));
   set versePosition(VersePosition value) => _save(_prefs.setString(_positionKey, value.name));
+
+  /// How often a new verse appears.
+  VerseCadence get cadence => VerseCadence.fromId(_prefs.getString(_cadenceKey));
+  set cadence(VerseCadence value) => _save(_prefs.setString(_cadenceKey, value.name));
 
   /// Android only: whether the app replaces the lock screen wallpaper every day.
   bool get dailyLockScreen => _prefs.getBool(_dailyLockScreenKey) ?? false;

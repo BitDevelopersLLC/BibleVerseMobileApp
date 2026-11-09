@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../app_theme.dart';
 
-/// A card showing today's verse and its reference.
+/// A card showing the current verse and its reference.
 class VerseCard extends StatelessWidget {
   /// Creates a verse card.
-  const VerseCard({required this.text, required this.reference, super.key});
+  const VerseCard({required this.label, required this.text, required this.reference, super.key});
+
+  /// Small heading above the verse, for example `TODAY`.
+  final String label;
 
   /// The verse text.
   final String text;
@@ -24,7 +27,7 @@ class VerseCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('TODAY', style: theme.textTheme.labelSmall?.copyWith(letterSpacing: 1.5)),
+            Text(label, style: theme.textTheme.labelSmall?.copyWith(letterSpacing: 1.5)),
             const SizedBox(height: 12),
             SelectableText(
               text,

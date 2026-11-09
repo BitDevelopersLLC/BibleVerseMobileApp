@@ -8,8 +8,9 @@ import 'wallpaper_style.dart';
 /// Draws a full-screen verse wallpaper as a PNG image.
 ///
 /// Used for the in-app preview on both platforms and for "Save to Photos" on iOS.
-/// The Android background job draws the same layout natively in `WallpaperRenderer.kt`.
-/// Keep the layout constants below in sync with that file.
+/// The Android background job (`WallpaperRenderer.kt`) and the iOS Shortcuts action
+/// (`WallpaperRenderer.swift`) draw the same layout natively. Keep the layout constants below
+/// in sync with those files.
 abstract final class WallpaperRenderer {
   /// Horizontal margin on each side, as a fraction of the width.
   static const _marginFraction = 0.10;
