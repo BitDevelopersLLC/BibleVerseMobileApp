@@ -311,6 +311,40 @@ section {
   aspect-ratio: 2064 / 2752;
 }
 
+/* Verse samples */
+
+.samples {
+  background: #f4ecea;
+}
+
+.verse-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.verse-card {
+  margin: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.verse-card blockquote {
+  margin: 0 0 16px;
+  font: 18px/1.55 var(--serif);
+}
+
+.verse-card figcaption {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--purple-soft);
+}
+
 /* Translations */
 
 .translations ul {
