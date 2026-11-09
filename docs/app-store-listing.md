@@ -28,10 +28,10 @@ on the Mac (see `docs/ios-setup.md`).
 
 ## Version 1.0.0 page
 
-**Promotional text** (159 of 170; can be changed anytime without review)
+**Promotional text** (158 of 170; can be changed anytime without review)
 
 ```
-A new Bible verse under your clock every day. No ads, no account, nothing collected. Add the lock screen widget once and let God's Word greet you each morning.
+A new Bible verse on your lock screen every day. No ads, no account, nothing collected. Add the widget, or let Shortcuts set a full-screen verse each morning.
 ```
 
 **Keywords** (97 of 100; words already in the name and subtitle are indexed automatically, so they aren't repeated)
