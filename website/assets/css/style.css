@@ -288,6 +288,10 @@ section {
   width: 220px;
 }
 
+.gallery img.tablet {
+  width: 360px;
+}
+
 .gallery figcaption {
   margin-top: 10px;
   font-size: 14px;
@@ -625,6 +629,10 @@ details li + li {
   .gallery img,
   .placeholder.phone {
     width: 180px;
+  }
+
+  .gallery img.tablet {
+    width: 280px;
   }
 
   .placeholder.tablet {

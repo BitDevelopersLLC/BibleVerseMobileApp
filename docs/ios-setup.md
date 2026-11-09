@@ -66,15 +66,20 @@ Also already in the project. For reference, this is how it is set up:
 | iPhone Duo (optional, earns the "made for iPhone Duo" badge) | iPhone Duo | check App Store Connect for the size |
 
 1. Clean status bar: `xcrun simctl status_bar booted override --time 9:41 --batteryLevel 100 --batteryState charged --cellularBars 4 --wifiBars 3`
-2. Capture: `xcrun simctl io booted screenshot <file>.png`
-3. Screens: lock screen with the widget, lock screen with a saved verse wallpaper, the app's main
-   screen, the styles + verse position section, and About. Adding the widget to the simulator's
-   lock screen needs a few clicks in the Simulator window (touch and hold > Customize > Lock Screen).
-4. Frame with `python3 tools/frame_screenshots.py <raw_dir> <out_dir> 1320 2868` (iPad: `2064 2752`).
-   Edit the SHOTS list in the script for the iOS file names and captions. No price words ("free").
-5. Copy the iPhone and iPad images into `website/assets/img/` (`iphone-lock-widget.png`,
-   `iphone-home.png`, `iphone-wallpaper.png`, `ipad-lock-screen.png`), replace the placeholders in
-   `website/index.html` (the HTML comments show the exact markup), bump image `?v=` and deploy.
+2. Capture: `xcrun simctl io booted screenshot <file>.png`. Save the raw files in the private
+   `media/screenshots/ios/iphone-raw/` and `ipad-raw/` folders with these names:
+   `01-lock-widget`, `02-lock-wallpaper`, `03-home`, `04-styles` (Night + Lower),
+   `05-shortcuts-guide` (Wallpaper tab, scrolled to the Shortcuts steps) and `06-about`.
+3. Adding the widget needs touch-and-hold on the Simulator's lock screen (Customize > Add Widgets).
+4. The Simulator draws photo wallpapers as plain black. For `02-lock-wallpaper`, save the verse
+   picture from the app, set it as the wallpaper (Photos > Share > Use as Wallpaper), capture the
+   lock screen (clock over black), and combine the two with a "screen" blend (Pillow
+   `ImageChops.screen(wallpaper, lock_screen)`). The result matches what a real device shows.
+5. Frame: `python3 tools/frame_screenshots.py media/screenshots/ios/iphone-raw media/screenshots/ios/iphone-framed 1320 2868 --set ios`
+   and the same with `ipad-raw ipad-framed 2064 2752`. Captions avoid price words ("free").
+6. Website images: `python3 tools/make_brand_graphics.py --ios-only` writes
+   `website/assets/img/iphone-lock-widget.png`, `iphone-home.png`, `iphone-wallpaper.png` and
+   `ipad-lock-screen.png` (private files; deploy them with the site).
 
 ## 6. Upload and submit
 
