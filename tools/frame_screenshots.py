@@ -32,7 +32,7 @@ SERIF = ImageFont.truetype(SERIF_FONT, round(74 * SCALE))
 SHOTS = [
     ("02-lock-screen.png", "A new Bible verse on\nyour lock screen,\nevery day", "01-lock-screen"),
     ("01-home.png", "Four trusted\npublic-domain\ntranslations", "02-translations"),
-    ("03-styles.png", "Choose the look\nyou love", "03-styles"),
+    ("03-styles.png", "Your colors, and\nwhere the verse\nsits on your screen", "03-styles"),
     ("05-lock-screen-night.png", "Set it once.\nIt changes every\nmorning.", "04-changes-daily"),
     ("04-about.png", "No ads.\nNo tracking.\nNothing collected.", "05-privacy"),
 ]

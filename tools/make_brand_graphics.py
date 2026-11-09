@@ -116,9 +116,10 @@ def banner(size: tuple[int, int], tagline: str, footnote: str, out: Path) -> Non
     draw.text((left, top + round(300 * s)), footnote, font=font("georgia.ttf", round(20 * s)),
               fill=(255, 255, 255, 215))
 
-    # The phone is taller than the banner and cropped, so the big clock and the verse are visible.
-    device = phone(RAW / "02-lock-screen.png", round(700 * s))
-    with_shadow(canvas, device, (w - device.width - round(70 * s), -round(250 * s)), round(18 * s))
+    # The phone is a little taller than the banner and runs off the bottom edge, keeping both the
+    # lock screen clock (near the top) and the verse in view.
+    device = phone(RAW / "02-lock-screen.png", round(560 * s))
+    with_shadow(canvas, device, (w - device.width - round(90 * s), round(28 * s)), round(18 * s))
     out.parent.mkdir(parents=True, exist_ok=True)
     canvas.convert("RGB").save(out, optimize=True)
     print(f"{out.relative_to(ROOT)}  {canvas.size}")
