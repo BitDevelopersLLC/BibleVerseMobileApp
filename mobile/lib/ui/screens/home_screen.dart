@@ -12,6 +12,7 @@ import '../../wallpaper/wallpaper_renderer.dart';
 import '../widgets/android_lock_screen_panel.dart';
 import '../widgets/dedication_note.dart';
 import '../widgets/iphone_lock_screen_panel.dart';
+import '../widgets/readable_width.dart';
 import '../widgets/verse_cadence_picker.dart';
 import '../widgets/verse_card.dart';
 import 'about_screen.dart';
@@ -185,59 +186,61 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
-        children: [
-          VerseCard(
-            label: _settings.cadence.verseCardLabel,
-            text: _verse.textIn(translation.id),
-            reference: _referenceLine,
-          ),
-          const SizedBox(height: 24),
-          Text('Translation', style: textTheme.titleMedium),
-          const SizedBox(height: 8),
-          SegmentedButton<String>(
-            showSelectedIcon: false,
-            segments: [
-              for (final t in widget.library.translations)
-                ButtonSegment(value: t.id, label: Text(t.id), tooltip: t.name),
-            ],
-            selected: {translation.id},
-            onSelectionChanged: (selection) => _settings.translationId = selection.first,
-          ),
-          const SizedBox(height: 4),
-          Text(translation.name, style: textTheme.bodySmall),
-          const SizedBox(height: 24),
-          VerseCadencePicker(
-            selected: _settings.cadence,
-            onSelected: (cadence) => _settings.cadence = cadence,
-          ),
-          const SizedBox(height: 28),
-          Text('Lock screen', style: textTheme.titleMedium),
-          const SizedBox(height: 8),
-          if (Platform.isAndroid)
-            AndroidLockScreenPanel(
-              supported: _androidSupported,
-              settings: _settings,
-              preview: _previewImage,
-              onApplyNow: _applyNow,
-            )
-          else
-            IphoneLockScreenPanel(
-              settings: _settings,
-              preview: _previewImage,
-              onSaveToPhotos: _saveWallpaperToPhotos,
-              onOpenGuide: (tab) => _open(IphoneSetupScreen(initialTab: tab)),
+      body: ReadableWidth(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
+          children: [
+            VerseCard(
+              label: _settings.cadence.verseCardLabel,
+              text: _verse.textIn(translation.id),
+              reference: _referenceLine,
             ),
-          const SizedBox(height: 32),
-          Text(
-            'Free forever. No ads. No account. Nothing you do here leaves your phone.',
-            textAlign: TextAlign.center,
-            style: textTheme.bodySmall,
-          ),
-          const SizedBox(height: 8),
-          const DedicationNote(),
-        ],
+            const SizedBox(height: 24),
+            Text('Translation', style: textTheme.titleMedium),
+            const SizedBox(height: 8),
+            SegmentedButton<String>(
+              showSelectedIcon: false,
+              segments: [
+                for (final t in widget.library.translations)
+                  ButtonSegment(value: t.id, label: Text(t.id), tooltip: t.name),
+              ],
+              selected: {translation.id},
+              onSelectionChanged: (selection) => _settings.translationId = selection.first,
+            ),
+            const SizedBox(height: 4),
+            Text(translation.name, style: textTheme.bodySmall),
+            const SizedBox(height: 24),
+            VerseCadencePicker(
+              selected: _settings.cadence,
+              onSelected: (cadence) => _settings.cadence = cadence,
+            ),
+            const SizedBox(height: 28),
+            Text('Lock screen', style: textTheme.titleMedium),
+            const SizedBox(height: 8),
+            if (Platform.isAndroid)
+              AndroidLockScreenPanel(
+                supported: _androidSupported,
+                settings: _settings,
+                preview: _previewImage,
+                onApplyNow: _applyNow,
+              )
+            else
+              IphoneLockScreenPanel(
+                settings: _settings,
+                preview: _previewImage,
+                onSaveToPhotos: _saveWallpaperToPhotos,
+                onOpenGuide: (tab) => _open(IphoneSetupScreen(initialTab: tab)),
+              ),
+            const SizedBox(height: 32),
+            Text(
+              'Free forever. No ads. No account. Nothing you do here leaves your phone.',
+              textAlign: TextAlign.center,
+              style: textTheme.bodySmall,
+            ),
+            const SizedBox(height: 8),
+            const DedicationNote(),
+          ],
+        ),
       ),
     );
   }

@@ -46,7 +46,7 @@ class IphoneLockScreenPanel extends StatelessWidget {
             leading: const Icon(Icons.widgets_outlined),
             title: const Text('Add the lock screen widget'),
             subtitle: const Text(
-              'A small verse under the clock. No setup after adding it, and it changes by itself.',
+              'A small verse on your lock screen. No setup after adding it, and it changes by itself.',
             ),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => onOpenGuide(IphoneSetupTab.widget),

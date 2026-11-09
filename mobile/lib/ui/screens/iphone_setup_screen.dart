@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/numbered_steps.dart';
+import '../widgets/readable_width.dart';
 
 /// Whether the "Get Today's Wallpaper" Shortcuts action exists in the iOS app.
 ///
@@ -32,7 +33,7 @@ class IphoneSetupScreen extends StatelessWidget {
       initialIndex: initialTab.index,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('iPhone lock screen'),
+          title: const Text('Lock screen setup'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Widget'),
@@ -40,7 +41,12 @@ class IphoneSetupScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(children: [_WidgetGuide(), _WallpaperGuide()]),
+        body: const TabBarView(
+          children: [
+            ReadableWidth(child: _WidgetGuide()),
+            ReadableWidth(child: _WallpaperGuide()),
+          ],
+        ),
       ),
     );
   }
