@@ -2,7 +2,7 @@
 
 > "Come, buy wine and milk without money and without price." (Isaiah 55:1)
 
-**Without Price** puts a Bible verse on your phone's lock screen, a new one every day.
+**Without Price** puts a Bible verse on your phone's lock screen, a new one every day (or every hour, if you choose).
 
 - **Free forever.** No price, no subscription, no "premium."
 - **No ads, no account, no tracking.** The app collects nothing. See [PRIVACY.md](PRIVACY.md).
@@ -11,7 +11,7 @@
 
 | Platform | How the verse reaches the lock screen |
 |---|---|
-| Android | The app sets the lock screen wallpaper itself and changes it every day. The home screen is left alone. |
+| Android | The app sets the lock screen wallpaper itself and changes it every day or every hour. The home screen is left alone. |
 | iPhone | A lock screen widget (recommended), or a full-screen verse wallpaper you save to Photos and set in a few taps. Apple does not let apps change the wallpaper directly. |
 
 Website: [withoutprice.app](https://withoutprice.app)

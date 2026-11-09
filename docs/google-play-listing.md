@@ -1,6 +1,6 @@
 # Google Play listing
 
-Everything to paste into Play Console for version 1.0.0. Graphics are in the private `media/`
+Everything to paste into Play Console (updated for version 1.1.0). Graphics are in the private `media/`
 folder (not in this repository).
 
 ## Release file
@@ -40,21 +40,20 @@ That verse is our promise. This app isn't trying to get anything from you.
 • Open source. Anyone can read the code and check these promises.
 
 HOW IT WORKS
-1. Pick a translation and a background.
-2. Turn on "Put a new verse on my lock screen every day."
-3. That's it. Each morning, today's verse appears on your lock screen. Your home screen stays the same.
+1. Pick a translation, a background, and how often you want a new verse: every day or every hour.
+2. Turn on "Put a new verse on my lock screen."
+3. That's it. A new verse appears on your lock screen each morning (or each hour). Your home screen stays the same.
 
 FEATURES
-• A new verse every day, automatically, on your lock screen
-  (from version 1.1: "• A new verse every day or every hour, automatically, on your lock screen")
+• A new verse every day or every hour, automatically, on your lock screen
 • 168 hand-picked verses about hope, strength, peace, and God's love, each short enough for a lock screen
 • Four trusted public-domain translations: Berean Standard Bible (BSB), King James Version (KJV), World English Bible (WEB), and American Standard Version (ASV)
 • Four calm background styles: Dawn, Night, Olive, and Stone
 • Choose where the verse sits (top, upper middle, lower middle, or bottom) so your clock and fingerprint icon never cover it
-• Light on battery: one small update a day
+• Light on battery: a quick check in the background, and a redraw only when a new verse is due
 
 PRIVACY
-Without Price asks for only three permissions: to set your lock screen wallpaper, and two that let the daily update run and survive a restart. It cannot send data anywhere. Read our privacy policy at withoutprice.app/privacy.html.
+Without Price asks for only three permissions: to set your lock screen wallpaper, and two that let the background update run and survive a restart. It cannot send data anywhere. Read our privacy policy at withoutprice.app/privacy.html.
 
 Questions or ideas? Write to hello@withoutprice.app. We read every message.
 

@@ -2,7 +2,7 @@
 
 **Without Price collects no data. None.**
 
-_Last updated: November 8, 2026_
+_Last updated: November 9, 2026_
 
 <!-- Keep in sync with website/privacy.html. -->
 
@@ -16,7 +16,7 @@ Nothing. Without Price has:
 - no server. The app never connects to the internet.
 
 All Bible verses are built into the app. Your choices (translation, background color, and
-whether the daily lock screen is on) are stored only on your phone and are deleted when you
+whether the lock screen verse is on) are stored only on your phone and are deleted when you
 uninstall the app.
 
 ## Android permissions
@@ -24,8 +24,8 @@ uninstall the app.
 | Permission | Why |
 |---|---|
 | `SET_WALLPAPER` | To put the verse on your lock screen. |
-| `RECEIVE_BOOT_COMPLETED` | To keep the daily update running after your phone restarts. |
-| `WAKE_LOCK` | To let the daily update finish while the screen is off. |
+| `RECEIVE_BOOT_COMPLETED` | To keep the lock screen verse updating after your phone restarts. |
+| `WAKE_LOCK` | To let the lock screen update finish while the screen is off. |
 
 The last two are used by Android's WorkManager library, which runs the once-a-day update.
 That's the complete list. The app does **not** have the `INTERNET` permission, so it is
