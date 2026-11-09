@@ -7,8 +7,8 @@ Already done from Windows (don't redo): the Apple Developer identifiers (App Gro
 linked to the group) and the whole App Store Connect listing (text, privacy, age rating, pricing,
 availability without China mainland, automatic release). See `docs/app-store-listing.md`.
 
-On the Mac you need: Dropbox fully synced, Xcode, Flutter (`flutter doctor` clean for iOS),
-CocoaPods, and Python 3 with Pillow (`python3 -m pip install pillow`) for the screenshot framing.
+On the Mac you need: Xcode, Flutter (`flutter doctor` clean for iOS), CocoaPods, and Python 3
+with Pillow (`python3 -m pip install pillow`) for the screenshot framing.
 
 The Flutter app, the method channel in `AppDelegate.swift`, and the widget's Swift source are
 already written. Adding a widget extension means editing the Xcode project, so those steps
@@ -40,8 +40,11 @@ Also already in the project. For reference, this is how it is set up:
   Configuration App Intent), bundle ID `app.withoutprice.VerseWidget`, same team, minimum iOS 17.0.
 - `ios/VerseWidget/` is a folder Xcode keeps in sync with the target: every file in it is part of the
   widget automatically (only `Info.plist` is excluded from resources). It holds
-  `VerseWidgetBundle.swift` (entry point), `VerseTimelineProvider.swift`, `VerseStore.swift`,
-  `VerseWidgetView.swift`, `WidgetStyle.swift`, `PrivacyInfo.xcprivacy` and `Assets.xcassets`.
+  `VerseWidgetBundle.swift` (entry point), `VerseTimelineProvider.swift`, `VerseWidgetView.swift`,
+  `PrivacyInfo.xcprivacy` and `Assets.xcassets`.
+- `ios/Shared/` is synced with **both** Runner and the widget: the verse rotation (`VerseStore.swift`,
+  `VerseCadence.swift`), `WallpaperStyle.swift`, `VersePosition.swift` and `SharedSettings.swift`
+  (the App Group keys).
 - `mobile/assets/verses.json` is added to the widget's Resources as a reference, not a copy, so it
   stays in sync with `tools/build_verses.py`.
 - **App Groups** > `group.app.withoutprice` (`ios/VerseWidgetExtension.entitlements`).
@@ -80,13 +83,33 @@ Also already in the project. For reference, this is how it is set up:
 2. In App Store Connect > iOS App 1.0.0: pick the build, upload the screenshots, and click
    **Add for Review**, then **Submit**. Release is set to automatic.
 
-## 7. Later: automatic daily wallpaper through Shortcuts
+## 7. Daily wallpaper through Shortcuts
 
-Add an App Intent, "Get Today's Wallpaper", that returns today's verse image as an
-`IntentFile`, so users can build a Shortcuts automation with "Set Wallpaper Photo".
-It has to draw the image in Swift (`UIGraphicsImageRenderer`) using the same layout numbers as
-`lib/wallpaper/wallpaper_renderer.dart`. When it ships, set `kShortcutsActionAvailable = true`
-in `lib/ui/screens/iphone_setup_screen.dart` to show the steps that are already written.
+iOS doesn't let apps change the wallpaper, and lock screen widgets are small, so the full-screen
+verse comes from a Shortcuts automation:
+
+- `ios/WallpaperShortcut/` (synced with Runner only) holds `GetTodaysWallpaperIntent.swift`, the
+  App Intent behind the **Get Today's Wallpaper** action, and `WallpaperRenderer.swift`, a port of
+  `lib/wallpaper/wallpaper_renderer.dart`. Keep the layout constants of the three renderers (Dart,
+  Kotlin, Swift) in sync.
+- The action reads the user's translation, style, position and cadence from the App Group
+  (`SharedSettings`), which `AppDelegate` fills whenever a setting changes. It draws at the
+  screen's native resolution and returns a PNG. It never opens the app and needs iOS 17.
+- `verses.json` is in the Runner target's resources as well as the widget's.
+- The user-facing steps are in `lib/ui/screens/iphone_setup_screen.dart` and on the support page.
+  They were checked on iOS 26.5: Automation > New Automation > Time of Day (Daily, Run Immediately)
+  > Create New Shortcut > Get Today's Wallpaper > Set Wallpaper Photo (choose the verse wallpaper,
+  Lock Screen only, Show Preview and Crop to Subject off).
+- "Set Wallpaper Photo" can only update a wallpaper made from a photo, so users first set a saved
+  verse picture as their wallpaper once by hand.
+- Shortcuts automations repeat at most daily, so with the "Every hour" setting only the widget
+  changes hourly.
+
+To test on the simulator: run the app once, then in Shortcuts build a shortcut with
+**Get Today's Wallpaper** followed by **Save to Photos**, run it, and compare the saved picture
+with the app's "Save to Photos" image. They should match. `RunnerTests/VerseRotationTests.swift`
+covers the rotation rule and the renderer's output size (`xcodebuild test -workspace
+Runner.xcworkspace -scheme Runner -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max'`).
 
 ## App Store privacy answers
 

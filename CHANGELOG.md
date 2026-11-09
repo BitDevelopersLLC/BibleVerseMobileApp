@@ -17,8 +17,14 @@ uses [Semantic Versioning](https://semver.org/).
 - `tools/build_verses.py` to regenerate the bundled verse data from eBible.org.
 - Licensed under GPL-3.0.
 - withoutprice.app website (coming-soon home page, support page, and privacy policy).
+- "New verse: Every day / Every hour" setting. Every day stays the default. The Android wallpaper
+  and the iOS widget follow it; the rule is the same in Dart, Kotlin and Swift, with tests on all three.
+- iOS: a "Get Today's Wallpaper" action for the Shortcuts app, so a personal automation can put a
+  new full-screen verse wallpaper on the lock screen every morning. The app explains the setup.
 
 ### Changed
+- iOS: the lock screen widget centers the verse and uses the largest text that fits.
+- iOS: the widget and the app share one copy of the verse rotation, styles and positions (`ios/Shared/`).
 - The Android app now asks for only three permissions; two unused ones added by WorkManager were removed.
 - Release builds are signed with the Without Price upload key.
 

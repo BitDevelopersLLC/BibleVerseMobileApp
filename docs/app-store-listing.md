@@ -56,11 +56,11 @@ That verse is our promise. This app isn't trying to get anything from you.
 • Open source. Anyone can read the code and check these promises.
 
 TWO WAYS TO SEE TODAY'S VERSE
-• Lock screen widget: add it under your clock once, and it shows a new verse every day by itself.
-• Full-screen wallpaper: save today's verse as a beautiful wallpaper and set it in a few taps. The app shows you how, step by step.
+• Lock screen widget: add it once, and it shows a new verse by itself.
+• Full-screen wallpaper: save today's verse as a beautiful wallpaper, then let Apple's Shortcuts app put a new one on your lock screen every morning. The app shows you how, step by step.
 
 FEATURES
-• A new verse every day, automatically
+• A new verse every day (or every hour, if you like), automatically
 • 168 hand-picked verses about hope, strength, peace, and God's love, each short enough for a lock screen
 • Four trusted public-domain translations: Berean Standard Bible (BSB), King James Version (KJV), World English Bible (WEB), and American Standard Version (ASV)
 • Four calm background styles: Dawn, Night, Olive, and Stone

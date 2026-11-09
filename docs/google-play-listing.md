@@ -46,6 +46,7 @@ HOW IT WORKS
 
 FEATURES
 • A new verse every day, automatically, on your lock screen
+  (from version 1.1: "• A new verse every day or every hour, automatically, on your lock screen")
 • 168 hand-picked verses about hope, strength, peace, and God's love, each short enough for a lock screen
 • Four trusted public-domain translations: Berean Standard Bible (BSB), King James Version (KJV), World English Bible (WEB), and American Standard Version (ASV)
 • Four calm background styles: Dawn, Night, Olive, and Stone
@@ -116,3 +117,5 @@ and no account. Settings stay on the device.
 3. **Testing > Internal testing**: upload the `.aab`, add yourself as a tester, install it from the Play link, and check it on a real phone (the Samsung).
 4. **Production**: promote the same release. Countries: all, or start with the United States.
 5. Release notes for 1.0.0: "First release: a new Bible verse on your lock screen every day."
+6. Release notes for 1.1.0 (next Android update): "New: choose a new verse every day or every hour."
+   Update the full description feature line as noted above.

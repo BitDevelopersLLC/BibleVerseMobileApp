@@ -45,7 +45,9 @@ mobile/                                  Flutter app (Android + iOS)
     verses/                              Bundled data access and the daily-verse rule
     wallpaper/                           Native wallpaper renderer and styles
   ios/Runner/AppDelegate.swift           Shares settings with the widget via an App Group
+  ios/Shared/                            Verse rotation, styles and settings used by the app and widget
   ios/VerseWidget/                       WidgetKit lock screen widget (see docs/ios-setup.md)
+  ios/WallpaperShortcut/                 "Get Today's Wallpaper" action for the Shortcuts app
   test/                                  Unit and widget tests
 tools/
   verse_refs.txt                         The curated verse list
@@ -60,9 +62,12 @@ out of this repository and are not covered by the GPL. `tools/make_brand_graphic
 
 ### One rule, three languages
 
-The verse of the day is `(days since 1970-01-01 for the local date) mod (number of verses)`.
-It is implemented in Dart (`verse_library.dart`), Kotlin (`DailyVerse.kt`), and Swift
-(`VerseStore.swift`), so the app, the Android wallpaper, and the iOS widget always agree.
+The current verse is `slot mod (number of verses)`, where the slot is the number of days since
+1970-01-01 for the local date (a new verse every day, the default) or that number times 24 plus
+the local hour (a new verse every hour). It is implemented in Dart (`verse_cadence.dart`,
+`verse_library.dart`), Kotlin (`VerseCadence.kt`, `DailyVerse.kt`), and Swift
+(`VerseCadence.swift`, `VerseStore.swift`), so the app, the Android wallpaper, the iOS widget and
+the iOS Shortcuts action always agree.
 The wallpaper styles and layout constants are likewise mirrored between Dart, Kotlin and Swift.
 Each file says which others to update.
 
