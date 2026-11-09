@@ -15,3 +15,13 @@ _downloads/
 # OS files
 .DS_Store
 Thumbs.db
+
+# App icons generated from the private media/ files by `dart run flutter_launcher_icons`.
+# The repository keeps Flutter's default icons; the real ones stay local. The tracked default
+# icon files are marked `git update-index --skip-worktree` so local icons are never committed.
+mobile/android/app/src/main/res/drawable-*/ic_launcher_*.png
+mobile/android/app/src/main/res/mipmap-anydpi-v26/
+mobile/android/app/src/main/res/values/colors.xml
+mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-50x50@*.png
+mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-57x57@*.png
+mobile/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-72x72@*.png
