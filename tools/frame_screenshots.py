@@ -5,8 +5,8 @@ Usage:
     python -I tools/frame_screenshots.py <raw_dir> <out_dir> [width height]
 
 Defaults to 1080 x 1920 (Google Play, 9:16). For the App Store 6.9" size use 1320 2868.
-Requires Pillow. Captions and file order are in SHOTS below. Fonts come from Windows
-(Georgia Bold) on Windows or macOS.
+Requires Pillow. Captions and file order are in SHOTS below. Uses the Georgia Bold font
+on Windows or macOS.
 """
 import sys
 from pathlib import Path
