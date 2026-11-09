@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Without Price only saves verse wallpapers to your photo library. It never reads, views or uploads your photos.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Lets Without Price save verse wallpapers to your photos. The app can only add pictures; it cannot see your photos.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
