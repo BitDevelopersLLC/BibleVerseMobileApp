@@ -10,6 +10,7 @@ import '../../data/verse_library.dart';
 import '../../platform/lock_screen_channel.dart';
 import '../../wallpaper/wallpaper_renderer.dart';
 import '../widgets/android_lock_screen_panel.dart';
+import '../widgets/dedication_note.dart';
 import '../widgets/iphone_lock_screen_panel.dart';
 import '../widgets/verse_card.dart';
 import 'about_screen.dart';
@@ -197,6 +198,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             textAlign: TextAlign.center,
             style: textTheme.bodySmall,
           ),
+          const SizedBox(height: 8),
+          const DedicationNote(),
         ],
       ),
     );
